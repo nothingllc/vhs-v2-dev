@@ -1,0 +1,254 @@
+.product--layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: var(--grid-desktop-horizontal-spacing);
+  margin: 0;
+  width: 100%;
+}
+
+.grid__item {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.product__media-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+}
+
+.product__map-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+}
+
+.product__info-wrapper {
+  grid-column: 1;
+  grid-row: 2;
+  width: 100%;
+  padding: 0;
+}
+
+.product__form-wrapper {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100%;
+  padding: 0;
+}
+
+/* Remove any flex basis limitations */
+@supports (display: grid) {
+  .grid__item {
+    flex-basis: unset;
+    max-width: unset;
+  }
+}
+
+/* Override any existing max-width constraints */
+.page-width .product--layout-grid .grid__item {
+  max-width: none;
+  flex: 0 0 100%;
+}
+
+/* Typography improvements */
+.product__title {
+  margin-bottom: 1.5rem;
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+  line-height: 1.3;
+}
+
+.product__description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .product--layout-grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-mobile-vertical-spacing);
+  }
+
+  .grid__item {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .product__media-wrapper {
+    grid-row: 1;
+  }
+
+  .product__map-wrapper {
+    grid-row: 2;
+  }
+
+  .product__info-wrapper {
+    grid-row: 3;
+  }
+
+  .product__form-wrapper {
+    grid-row: 4;
+  }
+}
+
+/* Improved spacing for form elements */
+.form-section {
+  margin-bottom: 3rem;
+}
+
+.field-group {
+  margin-bottom: 2rem;
+}
+
+.field-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Enhanced visual hierarchy */
+.requirements-summary {
+  padding: 2rem;
+  margin: 2rem 0;
+  background: var(--gradient-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.requirements-summary h3 {
+  font-size: calc(var(--font-heading-scale) * 1.8rem);
+  margin-bottom: 1.5rem;
+}
+
+.requirements-summary ul {
+  margin: 0;
+  padding-left: 2rem;
+}
+
+.requirements-summary li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Focus states and accessibility */
+input:focus,
+select:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Override product size constraints */
+.product--large:not(.product--no-media) .product__info-wrapper {
+  padding: 0 0 0 4rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Ensure consistent full-width behavior */
+.product--medium:not(.product--no-media) .product__info-wrapper,
+.product--small:not(.product--no-media) .product__info-wrapper {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Adjust spacing for different screen sizes */
+@media screen and (min-width: 990px) {
+  .product--large:not(.product--no-media) .product__info-wrapper {
+    padding: 0 0 0 var(--grid-desktop-horizontal-spacing);
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .product--large:not(.product--no-media) .product__info-wrapper,
+  .product--medium:not(.product--no-media) .product__info-wrapper,
+  .product--small:not(.product--no-media) .product__info-wrapper {
+    padding: var(--grid-mobile-vertical-spacing) 0 0 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Media gallery full-width styles */
+.product__column-sticky {
+  width: 100%;
+  max-width: 100%;
+}
+
+.product__media-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.product__media-item {
+  width: 100%;
+  max-width: 100%;
+}
+
+.product-media-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.product__media {
+  width: 100%;
+  position: relative;
+}
+
+.product__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Adjust slider component to full width */
+slider-component {
+  width: 100%;
+  display: block;
+}
+
+/* Media queries for responsive behavior */
+@media screen and (min-width: 990px) {
+  .product__media-list {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .product__media-item {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .product__column-sticky {
+    position: relative;
+    top: auto;
+  }
+}
+
+/* Override any existing width constraints */
+.product__media-wrapper .product__column-sticky {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ensure proper aspect ratio maintenance */
+.media-fit-contain {
+  width: 100%;
+  height: auto;
+  position: relative;
+}

@@ -1,0 +1,83 @@
+<div class="vendor-registration" aria-labelledby="registration-title">
+  <h2 id="registration-title" class="visually-hidden registration-title">Vendor Registration</h2>
+
+  <div class="registration-form">
+    <fieldset class="form-section">
+      <legend>Business Information</legend>
+      <div class="field-group">
+        <label for="business-name">Business Name</label>
+        <input
+          type="text"
+          id="business-name"
+          name="properties[Business Name]"
+          required
+          autocomplete="organization"
+          aria-required="true"
+        >
+      </div>
+
+      <div class="field-group">
+        <label for="business-social">Social Media or Website</label>
+        <input
+          type="text"
+          id="business-social"
+          name="properties[Social Media]"
+          required
+          aria-required="true"
+          placeholder="https://"
+        >
+      </div>
+
+      <div class="field-group">
+        <label for="product-category">Product Category</label>
+        <select
+          id="product-category"
+          name="properties[Category]"
+          required
+          aria-required="true"
+        >
+          <option value="">Select a category</option>
+          <option value="housewares">Housewares</option>
+          <option value="gifts">Gifts & Accessories</option>
+          <option value="clothing">Clothing & Textiles</option>
+          <option value="jewelry">Jewelry</option>
+          <option value="art">Original Artwork</option>
+          <option value="wellness">Health & Wellness</option>
+          <option value="food">Food & Beverage</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <div class="terms-section">
+      <div class="requirements-summary" aria-label="Key Requirements">
+        <h3>Vendor Requirements</h3>
+        <ul>
+          <li>✓ Locally handmade or locally sourced products</li>
+          <li>✓ Original designs only</li>
+          <li>
+            ✓
+            <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener"
+              >No MLM or third-party products</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="terms-agreement">
+        <div class="custom-checkbox">
+          <input
+            type="checkbox"
+            id="terms-acceptance"
+            name="properties[Terms Accepted]"
+            required
+            aria-required="true"
+          >
+          <div class="checkbox-box"></div>
+        </div>
+        <label for="terms-acceptance">
+          I confirm my products meet all requirements and I accept the terms and conditions
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

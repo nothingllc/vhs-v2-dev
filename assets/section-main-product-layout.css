@@ -1,0 +1,41 @@
+.product {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2rem;
+}
+
+.product__media-wrapper {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.product__map-wrapper {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.product__info-wrapper {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.product__form-wrapper {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+@media screen and (max-width: 749px) {
+  .product {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .product__media-wrapper,
+  .product__map-wrapper,
+  .product__info-wrapper,
+  .product__form-wrapper {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}

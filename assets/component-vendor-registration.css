@@ -1,0 +1,44 @@
+/* Grid Layout */
+.product-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem;
+}
+
+/* Responsive Grid */
+@media screen and (max-width: 749px) {
+  .product-form-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+/* Form Layout */
+.vendor-registration {
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+}
+
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.field-group {
+  grid-column: span 1;
+}
+
+.field-group:last-child {
+  grid-column: 1 / -1;
+}
+
+.terms-section {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+}
+
+/* Existing styles remain below */
