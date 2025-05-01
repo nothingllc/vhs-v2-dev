@@ -5,6 +5,7 @@
   gap: var(--grid-desktop-horizontal-spacing);
   margin: 0;
   width: 100%;
+  overflow: hidden; /* Hide overflow on grid container */
 }
 
 .grid__item {
@@ -15,15 +16,29 @@
 }
 
 .product__media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   grid-column: 1;
   grid-row: 1;
-  width: 100%;
 }
 
 .product__map-wrapper {
   grid-column: 2;
   grid-row: 1;
   width: 100%;
+  height: 100%;
+  min-height: 300px;
+}
+
+.product__map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--border-radius);
 }
 
 .product__info-wrapper {
@@ -37,7 +52,49 @@
   grid-column: 2;
   grid-row: 2;
   width: 100%;
+  padding: 0.8rem 0 0 0.8rem;
+}
+
+/* Media gallery container */
+.product__media-gallery {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Media list modifications */
+.product__media-list {
+  margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Individual media items */
+.product__media-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure modal functionality remains */
+.product-popup-modal {
+  position: fixed;
+  z-index: 100; /* Keep modal above other content */
+}
+
+/* Image containment */
+.media-fit-contain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
 }
 
 /* Remove any flex basis limitations */
@@ -67,7 +124,20 @@
   margin-bottom: 2rem;
 }
 
-/* Responsive adjustments */
+.product__info-container .product__title {
+  margin-bottom: 2rem;
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+  line-height: 1.3;
+  color: rgb(var(--color-foreground));
+}
+
+.product__info-container .product__description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
 @media screen and (max-width: 749px) {
   .product--layout-grid {
     grid-template-columns: 1fr;
@@ -81,6 +151,7 @@
 
   .product__media-wrapper {
     grid-row: 1;
+    min-height: 300px; /* Minimum height on mobile */
   }
 
   .product__map-wrapper {
@@ -93,6 +164,12 @@
 
   .product__form-wrapper {
     grid-row: 4;
+    padding: 0.8rem 0 0 0;
+  }
+
+  .product__info-container .product__title {
+    font-size: calc(var(--font-heading-scale) * 2rem);
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -246,9 +323,78 @@ slider-component {
   max-width: 100% !important;
 }
 
-/* Ensure proper aspect ratio maintenance */
-.media-fit-contain {
+/* Dropdown selector styling */
+.product-single__variants,
+.registration-form select {
   width: 100%;
-  height: auto;
-  position: relative;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-body-family);
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  font-weight: var(--font-body-weight);
+  line-height: calc(1 + 0.5 / var(--font-body-scale));
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  border-radius: var(--inputs-radius);
+  box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0);
+  transition: box-shadow var(--duration-short) ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Custom dropdown arrow */
+.product-single__variants,
+.registration-form select {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10L12 15L17 10' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 2rem;
+  padding-right: 4rem;
+}
+
+/* Hover and focus states */
+.product-single__variants:hover,
+.registration-form select:hover {
+  border-color: rgba(var(--color-foreground), 0.25);
+}
+
+.product-single__variants:focus,
+.registration-form select:focus {
+  border-color: rgba(var(--color-foreground), 0.25);
+  box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.25);
+  outline: none;
+}
+
+/* Disabled state */
+.product-single__variants:disabled,
+.registration-form select:disabled {
+  background-color: rgb(var(--color-background));
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Option styling */
+.product-single__variants option,
+.registration-form select option {
+  font-size: 1.6rem;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .product-single__variants,
+  .registration-form select {
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+    padding: 0.8rem;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .product-single__variants,
+  .registration-form select {
+    border: 0.2rem solid CanvasText;
+  }
 }
