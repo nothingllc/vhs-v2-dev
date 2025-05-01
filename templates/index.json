@@ -15,12 +15,13 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "heading": "2025 Now Booking!",
             "heading_size": "h0"
           }
         },
         "text": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "Give customers details about the banner image(s) or content on the template.",
             "text_style": "body"
@@ -29,7 +30,7 @@
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Apply to be a Vendor today!",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -44,6 +45,7 @@
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/L1001866_JustinGaskinPhotography-19.jpg",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "none",
@@ -61,6 +63,7 @@
       "blocks": {
         "heading": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "Talk about your brand",
             "heading_size": "h1"
@@ -69,7 +72,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "text": "<p>Join thousands of patrons and vendors for our 9th year of public, free street markets throughout Vancouver's hottest shopping districts!</p>"
           }
         }
       },
@@ -91,18 +94,18 @@
       "settings": {
         "collection": "registration",
         "products_to_show": 3,
-        "title": "Featured products",
+        "title": "Market Events",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "columns_desktop": 1,
+        "columns_desktop": 3,
         "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
+        "full_width": true,
+        "show_view_all": true,
         "view_all_style": "solid",
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
