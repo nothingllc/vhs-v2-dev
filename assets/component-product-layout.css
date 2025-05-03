@@ -398,3 +398,49 @@ slider-component {
     border: 0.2rem solid CanvasText;
   }
 }
+
+/* Form control unified styles */
+.product-single__variants,
+.form__column button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-body-family);
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  font-weight: var(--font-body-weight);
+  line-height: calc(1 + 0.5 / var(--font-body-scale));
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  border-radius: var(--inputs-radius);
+  transition: box-shadow var(--duration-short) ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Submit button specific states */
+.form__column button[type="submit"]:hover {
+  border-color: rgba(var(--color-foreground), 0.25);
+  cursor: pointer;
+}
+
+.form__column button[type="submit"]:focus {
+  border-color: rgba(var(--color-foreground), 0.25);
+  box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.25);
+  outline: none;
+}
+
+/* Remove any conflicting button styles */
+.form__column button[type="submit"].btn {
+  background: rgb(var(--color-background));
+  min-width: unset;
+  min-height: unset;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .form__column button[type="submit"] {
+    padding: 0.8rem;
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+  }
+}

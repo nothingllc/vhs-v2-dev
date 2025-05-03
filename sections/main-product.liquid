@@ -94,7 +94,11 @@
           </div>
           {%- if product.description != blank -%}
             <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-              {{ product.description }}
+              {% if block.settings.custom_description != blank %}
+                {{ block.settings.custom_description }}
+              {% else %}
+                {{ product.description }}
+              {% endif %}
             </div>
           {%- endif -%}
         </section>
@@ -353,7 +357,15 @@
     {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "custom_description",
+          "label": "Custom Description",
+          "info": "Leave blank to use product's default description"
+        }
+      ]
     },
     {
       "type": "share",
