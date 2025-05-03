@@ -1,38 +1,11 @@
 <div class="vendor-registration" aria-labelledby="registration-title">
-  <div class="product-form">
-    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-      <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-      <link
-        itemprop="availability"
-        href="https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
-      >
-
-      {% form 'product', product %}
-        <div class="product__price">
-          {% if product.compare_at_price_max > product.price %}
-            <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
-          {% else %}
-            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-          {% endif %}
-
-          <span
-            id="ProductPrice-{{ section.id }}"
-            class="h1 price"
-            itemprop="price"
-            content="{{ current_variant.price | divided_by: 100.00 }}"
-          >
-            {{ current_variant.price | money }}
-          </span>
-
-          {% if product.compare_at_price_max > product.price %}
-            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-            <s id="ComparePrice-{{ section.id }}" class="h3 price compare-price">
-              {{ current_variant.compare_at_price | money }}
-            </s>
-          {% endif %}
-        </div>
-
-        <!-- Variant Selector -->
+  <div class="registration-steps">
+    <!-- Step 1: Date Selection -->
+    <div class="registration-step" data-step="1">
+      <div class="step-header">
+        <h2 class="step-title"><span class="step-number">1.</span> Select Your Market Date</h2>
+      </div>
+      <div class="step-content">
         <select name="id" id="productSelect-{{ section.id }}" class="product-single__variants">
           {% for variant in product.variants %}
             <option
@@ -50,106 +23,112 @@
             </option>
           {% endfor %}
         </select>
+      </div>
+    </div>
 
-        <!-- Registration Form Fields -->
-        <div class="registration-form">
-          <fieldset class="form-section">
-            <legend>Business Information</legend>
-            <div class="field-group">
-              <label for="business-name">Business Name</label>
-              <input
-                type="text"
-                id="business-name"
-                name="properties[Business Name]"
-                required
-                autocomplete="organization"
-                aria-required="true"
-              >
-            </div>
-
-            <div class="field-group">
-              <label for="business-social">Social Media or Website</label>
-              <input
-                type="text"
-                id="business-social"
-                name="properties[Social Media]"
-                required
-                aria-required="true"
-                placeholder="https://"
-              >
-            </div>
-
-            <div class="field-group">
-              <label for="product-category">Product Category</label>
-              <select
-                id="product-category"
-                name="properties[Category]"
-                required
-                aria-required="true"
-              >
-                <option value="">Select a category</option>
-                <option value="housewares">Housewares</option>
-                <option value="gifts">Gifts & Accessories</option>
-                <option value="clothing">Clothing & Textiles</option>
-                <option value="jewelry">Jewelry</option>
-                <option value="art">Original Artwork</option>
-                <option value="wellness">Health & Wellness</option>
-                <option value="food">Food & Beverage</option>
-              </select>
-            </div>
-          </fieldset>
-
-          <div class="terms-section">
-            <div class="requirements-summary" aria-label="Key Requirements">
-              <h3>Vendor Requirements</h3>
-              <ul>
-                <li>✓ Locally produced, handmade or sourced products</li>
-                <li>✓ Original designs only</li>
-                <li>
-                  ✓
-                  <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener"
-                    >MLM, indirect sales or bulk-imported products do not qualify</a
-                  >
-                </li>
-              </ul>
-            </div>
-
-            <div class="terms-agreement">
-              <div class="custom-checkbox">
-                <input
-                  type="checkbox"
-                  id="terms-acceptance"
-                  name="properties[Terms Accepted]"
-                  required
-                  aria-required="true"
-                >
-                <div class="checkbox-box"></div>
-              </div>
-              <label for="terms-acceptance">
-                I confirm my products meet all requirements and I accept the terms and conditions
-              </label>
-            </div>
+    <!-- Step 2: Business Information -->
+    <div class="registration-step" data-step="2">
+      <div class="step-header">
+        <h2 class="step-title"><span class="step-number">2.</span> Tell Us About Your Business</h2>
+      </div>
+      <div class="step-content">
+        <fieldset class="form-section">
+          <legend>Business Information</legend>
+          <div class="field-group">
+            <label for="business-name">Business Name</label>
+            <input
+              type="text"
+              id="business-name"
+              name="properties[Business Name]"
+              required
+              autocomplete="organization"
+              aria-required="true"
+            >
           </div>
-        </div>
 
-        <!-- Submit Button -->
-        <div class="form__column{% if section.settings.enable_payment_button %} form__column--shopify-payment-btn{% endif %}">
-          <button
-            type="submit"
-            name="add"
-            id="AddToCart-{{ section.id }}"
-            class="btn btn--fill btn--regular btn--color{% if section.settings.enable_payment_button %} btn--shopify-payment-btn btn--secondary-accent{% endif %}"
-          >
-            <span id="AddToCartText-{{ section.id }}">
-              {{- 'products.product.add_to_cart' | t -}}
-            </span>
-          </button>
+          <div class="field-group">
+            <label for="business-social">Social Media or Website</label>
+            <input
+              type="text"
+              id="business-social"
+              name="properties[Social Media]"
+              required
+              aria-required="true"
+              placeholder="https://"
+            >
+          </div>
 
-          {% if section.settings.enable_payment_button %}
-            {{ form | payment_button }}
-          {% endif %}
+          <div class="field-group">
+            <label for="product-category">Product Category</label>
+            <select
+              id="product-category"
+              name="properties[Category]"
+              required
+              aria-required="true"
+            >
+              <option value="">Select a category</option>
+              <option value="housewares">Housewares</option>
+              <option value="gifts">Gifts & Accessories</option>
+              <option value="clothing">Clothing & Textiles</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="art">Original Artwork</option>
+              <option value="wellness">Health & Wellness</option>
+              <option value="food">Food & Beverage</option>
+            </select>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <!-- Step 3: Requirements Review -->
+    <div class="registration-step" data-step="3">
+      <div class="step-header">
+        <h2 class="step-title"><span class="step-number">3.</span> Review Market Requirements</h2>
+      </div>
+      <div class="step-content">
+        <div class="requirements-summary" aria-label="Key Requirements">
+          <h3>Vendor Requirements</h3>
+          <ul>
+            <li>✓ Locally produced, handmade or sourced products</li>
+            <li>✓ Original designs only</li>
+            <li>
+              ✓
+              <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener"
+                >MLM, indirect sales or bulk-imported products do not qualify</a
+              >
+            </li>
+          </ul>
         </div>
-      {% endform %}
+        <div class="terms-agreement">
+          <div class="custom-checkbox">
+            <input
+              type="checkbox"
+              id="terms-acceptance"
+              name="properties[Terms Accepted]"
+              required
+              aria-required="true"
+            >
+            <div class="checkbox-box"></div>
+          </div>
+          <label for="terms-acceptance">
+            I confirm my products meet all requirements and I accept the terms and conditions
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Section -->
+    <div class="registration-submit">
+      <button
+        type="submit"
+        name="add"
+        id="AddToCart-{{ section.id }}"
+        class="submit-button{% if section.settings.enable_payment_button %} button--payment{% endif %}"
+      >
+        <span id="AddToCartText-{{ section.id }}">
+          {{- 'products.product.add_to_cart' | t -}}
+        </span>
+      </button>
     </div>
   </div>
 </div>
