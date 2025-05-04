@@ -118,16 +118,10 @@
     </div>
 
     <!-- Submit Section -->
-    <div class="registration-form__submit-wrapper">
-      <span
-        class="registration-form__submit-text"
-        role="button"
-        tabindex="0"
-        onclick="this.closest('form').submit();"
-        onkeypress="if(event.key === 'Enter') this.closest('form').submit();"
-      >
+    <registration-form-submit class="registration-form__submit-wrapper">
+      <span class="registration-form__submit-text" role="button" tabindex="0">
         {{- 'products.product.add_to_cart' | t -}}
       </span>
-    </div>
+    </registration-form-submit>
   </div>
 </div>

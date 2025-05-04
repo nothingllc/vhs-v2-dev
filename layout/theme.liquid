@@ -39,6 +39,8 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    {{ 'registration-form-submit.js' | asset_url | script_tag }}
+
     {{ content_for_header }}
 
     {%- liquid

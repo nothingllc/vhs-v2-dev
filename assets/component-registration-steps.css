@@ -108,13 +108,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all var(--duration-short) ease;
 }
 
 .registration-form__submit-wrapper:hover {
   border-color: rgba(var(--color-foreground), 0.25);
+  background-color: rgba(var(--color-foreground), 0.03);
 }
 
 .registration-form__submit-wrapper:focus {
+  border-color: rgba(var(--color-foreground), 0.25);
+  box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.25);
+  outline: none;
+}
+
+.registration-form__submit-wrapper:focus-within {
   border-color: rgba(var(--color-foreground), 0.25);
   box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.25);
   outline: none;
@@ -137,15 +145,31 @@
   line-height: calc(1 + 0.5 / var(--font-body-scale));
   color: rgb(var(--color-foreground));
   user-select: none;
+  position: relative;
+  transition: transform var(--duration-short) ease,
+              opacity var(--duration-short) ease;
 }
 
 .registration-form__submit-text:hover {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .registration-form__submit-text:focus {
   outline: none;
   text-decoration: underline;
+}
+
+.registration-form__submit-text.is-pressed {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+/* Active state - for touch devices */
+@media (hover: none) {
+  .registration-form__submit-wrapper:active .registration-form__submit-text {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
 }
 
 /* Responsive adjustments */
