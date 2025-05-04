@@ -100,8 +100,52 @@
 
 /* Submit section */
 .registration-form__submit-wrapper {
+  width: 100%;
+  padding: 0.5rem;
   margin-top: var(--grid-desktop-vertical-spacing);
-  padding: 0 var(--grid-desktop-horizontal-spacing);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  border-radius: var(--inputs-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration-form__submit-wrapper:hover {
+  border-color: rgba(var(--color-foreground), 0.25);
+}
+
+.registration-form__submit-wrapper:focus {
+  border-color: rgba(var(--color-foreground), 0.25);
+  box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.25);
+  outline: none;
+}
+
+.registration-form__submit-wrapper[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.registration-form__submit-text {
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-family: var(--font-body-family);
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  font-weight: var(--font-body-weight);
+  line-height: calc(1 + 0.5 / var(--font-body-scale));
+  color: rgb(var(--color-foreground));
+  user-select: none;
+}
+
+.registration-form__submit-text:hover {
+  opacity: 0.85;
+}
+
+.registration-form__submit-text:focus {
+  outline: none;
+  text-decoration: underline;
 }
 
 /* Responsive adjustments */
@@ -126,6 +170,15 @@
   .registration-form__select,
   .registration-form__submit {
     padding: 0.8rem;
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+  }
+
+  .registration-form__submit-wrapper {
+    padding: 0.8rem;
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+  }
+
+  .registration-form__submit-text {
     font-size: calc(var(--font-body-scale) * 1.4rem);
   }
 }

@@ -118,17 +118,16 @@
     </div>
 
     <!-- Submit Section -->
-    <div class="registration-submit">
-      <button
-        type="submit"
-        name="add"
-        id="AddToCart-{{ section.id }}"
-        class="submit-button{% if section.settings.enable_payment_button %} button--payment{% endif %}"
+    <div class="registration-form__submit-wrapper">
+      <span
+        class="registration-form__submit-text"
+        role="button"
+        tabindex="0"
+        onclick="this.closest('form').submit();"
+        onkeypress="if(event.key === 'Enter') this.closest('form').submit();"
       >
-        <span id="AddToCartText-{{ section.id }}">
-          {{- 'products.product.add_to_cart' | t -}}
-        </span>
-      </button>
+        {{- 'products.product.add_to_cart' | t -}}
+      </span>
     </div>
   </div>
 </div>
