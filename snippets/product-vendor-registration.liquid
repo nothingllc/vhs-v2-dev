@@ -1,5 +1,21 @@
-<div class="vendor-registration" aria-labelledby="registration-title">
+<form
+  method="post"
+  action="/cart/add"
+  id="vendor-registration-form"
+  accept-charset="UTF-8"
+  class="vendor-registration"
+  enctype="multipart/form-data"
+>
+  <input type="hidden" name="form_type" value="product">
+  <input type="hidden" name="utf8" value="✓">
+
   <div class="registration-steps">
+    <div class="progress-indicator" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+      <span class="progress-step completed" data-step="1"></span>
+      <span class="progress-step" data-step="2"></span>
+      <span class="progress-step" data-step="3"></span>
+    </div>
+
     <!-- Step 1: Date Selection -->
     <div class="registration-step" data-step="1">
       <div class="step-header">
@@ -119,9 +135,23 @@
 
     <!-- Submit Section -->
     <registration-form-submit class="registration-form__submit-wrapper">
-      <span class="registration-form__submit-text" role="button" tabindex="0">
-        {{- 'products.product.add_to_cart' | t -}}
-      </span>
+      <button
+        type="submit"
+        name="add"
+        class="product-single__variants registration-form__submit-button"
+        {% unless current_variant.available %}
+          disabled="disabled"
+        {% endunless %}
+        data-add-to-cart
+      >
+        <span data-add-to-cart-text>
+          {% if current_variant.available %}
+            {{ 'products.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </span>
+      </button>
     </registration-form-submit>
   </div>
-</div>
+</form>
