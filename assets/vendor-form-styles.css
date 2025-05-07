@@ -1,0 +1,185 @@
+/* Registration Form Layout */
+.registration-step {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  border: 2px solid #ddd;
+}
+
+.registration-step.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Form Layout */
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.field-group input,
+.field-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Terms Agreement */
+.terms-agreement__row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1.5rem;
+}
+
+.custom-checkbox {
+  position: relative;
+  min-width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.custom-checkbox input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #ffffff;
+  border: 2px solid #666666;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-checkbox:hover input ~ .checkbox-box {
+  border-color: #333333;
+}
+
+.custom-checkbox input:checked ~ .checkbox-box {
+  background-color: var(--color-button);
+  border-color: var(--color-button);
+}
+
+.checkbox-box:after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkbox-box:after {
+  display: block;
+}
+
+.custom-checkbox input:focus ~ .checkbox-box {
+  box-shadow: 0 0 0 3px rgba(var(--color-button-rgb), 0.25);
+}
+
+.terms-agreement__col--text label {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+/* Product Form Submit Button */
+.product-form__item--submit {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.btn.product-form__cart-submit {
+  width: 100%;
+  position: relative;
+  padding: 15px;
+  line-height: normal;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius, 4px);
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  font-size: var(--font-size-button-base, 1rem);
+  font-weight: var(--font-weight-button, 500);
+  text-align: center;
+  transition: all 0.2s ease-out;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.btn.product-form__cart-submit:hover:not([disabled]) {
+  opacity: 0.9;
+  background-color: var(--color-button-hover, var(--color-button));
+}
+
+.btn.product-form__cart-submit[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading state */
+.btn.product-form__cart-submit [data-loader] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn.product-form__cart-submit [data-loader] .icon {
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hide {
+  display: none;
+}
+
+/* Utility Classes */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Error States */
+.error {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}

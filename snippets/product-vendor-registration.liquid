@@ -138,24 +138,31 @@
     </div>
 
     <!-- Submit Section -->
-    <registration-form-submit class="registration-form__submit-wrapper">
+    <div class="product-form__item product-form__item--submit">
       <button
         type="submit"
         name="add"
-        class="product-single__variants registration-form__submit-button"
-        {% unless current_variant.available %}
+        id="AddToCart-{{ section.id }}"
+        {% if product.selected_or_first_available_variant.available %}
+          aria-label="{{ 'products.product.add_to_cart' | t }}"
+        {% else %}
+          aria-label="{{ 'products.product.sold_out' | t }}"
           disabled="disabled"
-        {% endunless %}
+        {% endif %}
+        class="btn product-form__cart-submit"
         data-add-to-cart
       >
         <span data-add-to-cart-text>
-          {% if current_variant.available %}
+          {%- if product.selected_or_first_available_variant.available -%}
             {{ 'products.product.add_to_cart' | t }}
-          {% else %}
+          {%- else -%}
             {{ 'products.product.sold_out' | t }}
-          {% endif %}
+          {%- endif -%}
+        </span>
+        <span class="hide" data-loader>
+          {{ 'products.product.loading' | t }}
         </span>
       </button>
-    </registration-form-submit>
+    </div>
   </div>
 </form>

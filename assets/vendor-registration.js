@@ -139,15 +139,45 @@ class VendorRegistrationForm {
 class VendorRegistrationHandler {
   constructor() {
     this.form = document.getElementById('vendor-registration-form');
+    this.submitButton = this.form.querySelector('[data-add-to-cart]');
+    this.submitText = this.submitButton.querySelector('[data-add-to-cart-text]');
+    this.loader = this.submitButton.querySelector('[data-loader]');
     this.variantSelect = document.getElementById('productSelect-' + this.form.dataset.sectionId);
-    this.addToCartButton = this.form.querySelector('[data-add-to-cart]');
-    this.buttonText = this.form.querySelector('[data-add-to-cart-text]');
+    this.categorySelect = document.getElementById('product-category');
+    this.termsCheckbox = document.getElementById('terms-acceptance');
+    this.requiredInputs = this.form.querySelectorAll('input[required], select[required]');
+
+    // Initialize button state on load
+    this.validateForm();
+
+    // Track form submission state
+    this.isSubmitting = false;
+
     this.init();
   }
 
   init() {
+    if (!this.form) return;
+
     this.variantSelect?.addEventListener('change', this.handleVariantChange.bind(this));
-    this.form?.addEventListener('submit', this.handleSubmit.bind(this));
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+
+    // Throttle validation on input/change
+    const throttledValidation = this.throttle(this.validateForm.bind(this), 300);
+    this.form.addEventListener('change', throttledValidation);
+    this.form.addEventListener('input', throttledValidation);
+  }
+
+  // Prevent duplicate submissions
+  throttle(func, limit) {
+    let inThrottle;
+    return function (...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
   }
 
   handleVariantChange(event) {
@@ -155,24 +185,103 @@ class VendorRegistrationHandler {
     const isAvailable = !variant.hasAttribute('disabled');
 
     // Update button state
-    this.addToCartButton.disabled = !isAvailable;
-    this.addToCartButton.setAttribute('aria-disabled', !isAvailable);
+    this.submitButton.disabled = !isAvailable;
+    this.submitButton.setAttribute('aria-disabled', !isAvailable);
 
     // Update button text
-    this.buttonText.textContent = isAvailable ? window.theme.strings.addToCart : window.theme.strings.soldOut;
+    this.submitText.textContent = isAvailable ? window.theme.strings.addToCart : window.theme.strings.soldOut;
 
     // Announce status change to screen readers
     this.announceVariantStatus(isAvailable);
   }
 
-  handleSubmit(event) {
-    if (this.addToCartButton.disabled) {
-      event.preventDefault();
+  validateForm() {
+    const isVariantSelected = this.variantSelect?.value;
+    const isCategorySelected = this.categorySelect?.value;
+    const isTermsAccepted = this.termsCheckbox?.checked;
+    let areRequiredFieldsFilled = true;
+
+    this.requiredInputs.forEach((input) => {
+      if (!input.value) {
+        areRequiredFieldsFilled = false;
+      }
+    });
+
+    const isValid = isVariantSelected && isCategorySelected && isTermsAccepted && areRequiredFieldsFilled;
+
+    this.updateButtonState(isValid);
+    return isValid;
+  }
+
+  updateButtonState(isValid) {
+    this.submitButton.disabled = !isValid;
+    this.submitButton.setAttribute('aria-disabled', !isValid);
+
+    this.submitText.textContent = isValid ? window.theme.strings.addToCart : window.theme.strings.completeForm;
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+
+    if (!this.validateForm()) {
+      this.highlightIncompleteFields();
       return;
     }
 
-    this.addToCartButton.classList.add('loading');
-    this.addToCartButton.setAttribute('aria-busy', 'true');
+    this.startLoading();
+
+    const formData = new FormData(this.form);
+
+    fetch(this.form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status) {
+          window.location.href = window.theme.routes.cart_url;
+        } else {
+          throw new Error(response.description || 'Error adding product to cart');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        this.stopLoading();
+        // Show error message to user
+        this.submitText.textContent = window.theme.strings.addToCartError;
+      });
+  }
+
+  startLoading() {
+    this.submitButton.classList.add('loading');
+    this.submitText.classList.add('hide');
+    this.loader.classList.remove('hide');
+    this.submitButton.disabled = true;
+  }
+
+  stopLoading() {
+    this.submitButton.classList.remove('loading');
+    this.submitText.classList.remove('hide');
+    this.loader.classList.add('hide');
+    this.submitButton.disabled = false;
+  }
+
+  highlightIncompleteFields() {
+    this.requiredInputs.forEach((input) => {
+      if (!input.value) {
+        input.classList.add('error');
+        input.closest('.registration-step')?.classList.add('active');
+      } else {
+        input.classList.remove('error');
+      }
+    });
+
+    if (!this.termsCheckbox?.checked) {
+      this.termsCheckbox.closest('.custom-checkbox').classList.add('error');
+    }
   }
 
   announceVariantStatus(isAvailable) {
@@ -187,7 +296,7 @@ class VendorRegistrationHandler {
   }
 }
 
-// Initialize the form when DOM is loaded
+// Update initialization
 document.addEventListener('DOMContentLoaded', () => {
   new VendorRegistrationForm();
   new VendorRegistrationHandler();
