@@ -136,7 +136,59 @@ class VendorRegistrationForm {
   }
 }
 
+class VendorRegistrationHandler {
+  constructor() {
+    this.form = document.getElementById('vendor-registration-form');
+    this.variantSelect = document.getElementById('productSelect-' + this.form.dataset.sectionId);
+    this.addToCartButton = this.form.querySelector('[data-add-to-cart]');
+    this.buttonText = this.form.querySelector('[data-add-to-cart-text]');
+    this.init();
+  }
+
+  init() {
+    this.variantSelect?.addEventListener('change', this.handleVariantChange.bind(this));
+    this.form?.addEventListener('submit', this.handleSubmit.bind(this));
+  }
+
+  handleVariantChange(event) {
+    const variant = event.target.selectedOptions[0];
+    const isAvailable = !variant.hasAttribute('disabled');
+
+    // Update button state
+    this.addToCartButton.disabled = !isAvailable;
+    this.addToCartButton.setAttribute('aria-disabled', !isAvailable);
+
+    // Update button text
+    this.buttonText.textContent = isAvailable ? window.theme.strings.addToCart : window.theme.strings.soldOut;
+
+    // Announce status change to screen readers
+    this.announceVariantStatus(isAvailable);
+  }
+
+  handleSubmit(event) {
+    if (this.addToCartButton.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    this.addToCartButton.classList.add('loading');
+    this.addToCartButton.setAttribute('aria-busy', 'true');
+  }
+
+  announceVariantStatus(isAvailable) {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'visually-hidden';
+    announcement.textContent = isAvailable ? window.theme.strings.available : window.theme.strings.soldOut;
+
+    this.form.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+  }
+}
+
 // Initialize the form when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   new VendorRegistrationForm();
+  new VendorRegistrationHandler();
 });

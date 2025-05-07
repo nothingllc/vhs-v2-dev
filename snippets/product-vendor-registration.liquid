@@ -2,6 +2,7 @@
   method="post"
   action="/cart/add"
   id="vendor-registration-form"
+  data-section-id="{{ section.id }}"
   accept-charset="UTF-8"
   class="vendor-registration"
   enctype="multipart/form-data"
@@ -25,14 +26,11 @@
         <select name="id" id="productSelect-{{ section.id }}" class="product-single__variants">
           {% for variant in product.variants %}
             <option
-              {% if variant == current_variant %}
-                selected="selected"
-              {% endif %}
-              data-sku="{{ variant.sku }}"
-              value="{{ variant.id }}"
               {% unless variant.available %}
                 disabled="disabled"
               {% endunless %}
+              data-sku="{{ variant.sku }}"
+              value="{{ variant.id }}"
             >
               {{ variant.title }} - {{ variant.price | money_with_currency }}
               {% unless variant.available %} - {{ 'products.product.sold_out' | t }}{% endunless %}
@@ -109,26 +107,32 @@
             <li>✓ Original designs only</li>
             <li>
               ✓
-              <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener"
-                >MLM, indirect sales or bulk-imported products do not qualify</a
-              >
+              <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener">
+                MLM, indirect sales or bulk-imported products do not qualify
+              </a>
             </li>
           </ul>
         </div>
         <div class="terms-agreement">
-          <div class="custom-checkbox">
-            <input
-              type="checkbox"
-              id="terms-acceptance"
-              name="properties[Terms Accepted]"
-              required
-              aria-required="true"
-            >
-            <div class="checkbox-box"></div>
+          <div class="terms-agreement__row">
+            <div class="terms-agreement__col terms-agreement__col--checkbox">
+              <div class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="terms-acceptance"
+                  name="properties[Terms Accepted]"
+                  required
+                  aria-required="true"
+                >
+                <div class="checkbox-box"></div>
+              </div>
+            </div>
+            <div class="terms-agreement__col terms-agreement__col--text">
+              <label for="terms-acceptance">
+                I confirm my products meet all requirements and I accept the terms and conditions
+              </label>
+            </div>
           </div>
-          <label for="terms-acceptance">
-            I confirm my products meet all requirements and I accept the terms and conditions
-          </label>
         </div>
       </div>
     </div>

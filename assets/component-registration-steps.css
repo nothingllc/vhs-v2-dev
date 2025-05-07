@@ -128,7 +128,7 @@
   outline: none;
 }
 
-.registration-form__submit-wrapper[aria-disabled="true"] {
+.registration-form__submit-wrapper[aria-disabled='true'] {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
@@ -146,8 +146,7 @@
   color: rgb(var(--color-foreground));
   user-select: none;
   position: relative;
-  transition: transform var(--duration-short) ease,
-              opacity var(--duration-short) ease;
+  transition: transform var(--duration-short) ease, opacity var(--duration-short) ease;
 }
 
 .registration-form__submit-text:hover {
