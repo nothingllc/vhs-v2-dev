@@ -257,10 +257,15 @@
       }
     {% endstyle %}
 
+    {%- comment -%}Theme stylesheets{%- endcomment -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
 
-    {%- if template contains 'product' and product.type == 'Market Registration' -%}
-      {{ 'vendor-form-styles.css' | asset_url | stylesheet_tag }}
+    {%- comment -%}Template-specific stylesheets{%- endcomment -%}
+    {%- if request.page_type == 'product' -%}
+      {%- if product.type == 'Market Registration' -%}
+        {{ 'vendor-form-styles.css' | asset_url | stylesheet_tag }}
+      {%- endif -%}
     {%- endif -%}
 
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">

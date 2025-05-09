@@ -107,6 +107,10 @@
   "products": {
     "product": {
       "add_to_cart": "Add to Cart",
+      "adding_to_cart": "Adding to Cart...",
+      "added_to_cart": "Added to Cart",
+      "add_to_cart_error": "Could not add to cart",
+      "complete_form": "Please Complete All Required Fields",
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
@@ -178,7 +182,15 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "loading": "Loading...",
+      "vendor_registration": {
+        "submit_disabled": "Complete Required Fields",
+        "terms_required": "Please accept the terms",
+        "category_required": "Please select a category",
+        "variant_required": "Please select a market date",
+        "form_validation": "All fields must be completed"
+      }
     },
     "modal": {
       "label": "Media gallery"

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "base": ["base.css"],
+    "theme": ["theme.css"],
+    "vendor-registration": ["vendor-form-styles.css"]
+  }
+}
