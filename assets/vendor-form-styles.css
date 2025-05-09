@@ -104,54 +104,6 @@
   color: var(--color-text);
 }
 
-/* Product Form Submit Button */
-.product-form__item--submit {
-  margin-top: 1rem;
-  width: 100%;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn.product-form__cart-submit {
-  width: 100%;
-  position: relative;
-  padding: 15px;
-  line-height: normal;
-  border: 1px solid transparent;
-  border-radius: var(--button-radius, 4px);
-  background-color: var(--color-button);
-  color: var(--color-button-text);
-  font-size: var(--font-size-button-base, 1rem);
-  font-weight: var(--font-weight-button, 500);
-  text-align: center;
-  transition: all 0.2s ease-out;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-}
-
-.btn.product-form__cart-submit:hover:not([disabled]) {
-  opacity: 0.9;
-  background-color: var(--color-button-hover, var(--color-button));
-}
-
-.btn.product-form__cart-submit[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn.product-form__cart-submit.loading {
-  opacity: 0.7;
-  cursor: wait;
-}
-
-.btn.product-form__cart-submit .hide {
-  display: none;
-}
-
 /* Loading state */
 .btn.product-form__cart-submit [data-loader] {
   position: absolute;
@@ -181,4 +133,9 @@
 .error {
   border-color: #dc3545;
   background-color: #fff8f8;
+}
+
+/* Keep vendor-specific styles only */
+.vendor-registration {
+  // ...vendor specific styles...
 }
