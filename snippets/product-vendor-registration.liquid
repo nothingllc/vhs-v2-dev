@@ -103,13 +103,48 @@
         <div class="requirements-summary" aria-label="Key Requirements">
           <h3>Vendor Requirements</h3>
           <ul>
-            <li>✓ Locally produced, handmade or sourced products</li>
-            <li>✓ Original designs only</li>
             <li>
-              ✓
-              <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener">
-                MLM, indirect sales or bulk-imported products do not qualify
-              </a>
+              <div class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="req-local"
+                  name="properties[Requirements Local]"
+                  required
+                  aria-required="true"
+                >
+                <div class="checkbox-box"></div>
+              </div>
+              <label for="req-local">Locally produced, handmade or sourced products</label>
+            </li>
+            <li>
+              <div class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="req-original"
+                  name="properties[Requirements Original]"
+                  required
+                  aria-required="true"
+                >
+                <div class="checkbox-box"></div>
+              </div>
+              <label for="req-original">Original designs only</label>
+            </li>
+            <li>
+              <div class="custom-checkbox">
+                <input
+                  type="checkbox"
+                  id="req-nonmlm"
+                  name="properties[Requirements NonMLM]"
+                  required
+                  aria-required="true"
+                >
+                <div class="checkbox-box"></div>
+              </div>
+              <label for="req-nonmlm">
+                <a href="https://quackwatch.org/mlm/general/misrepresentations/" target="_blank" rel="noopener">
+                  MLM, indirect sales or bulk-imported products do not qualify
+                </a>
+              </label>
             </li>
           </ul>
         </div>

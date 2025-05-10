@@ -163,6 +163,7 @@ class VendorRegistrationHandler {
     this.categorySelect = document.getElementById('product-category');
     this.termsCheckbox = document.getElementById('terms-acceptance');
     this.requiredInputs = this.form.querySelectorAll('input[required], select[required]');
+    this.requirementCheckboxes = this.form.querySelectorAll('.requirements-summary input[type="checkbox"]');
 
     // Initialize button state on load
     this.validateForm();
@@ -251,6 +252,7 @@ class VendorRegistrationHandler {
     const isVariantSelected = this.variantSelect?.value;
     const isCategorySelected = this.categorySelect?.value;
     const isTermsAccepted = this.termsCheckbox?.checked;
+    const areRequirementsAccepted = Array.from(this.requirementCheckboxes).every((checkbox) => checkbox.checked);
     let areRequiredFieldsFilled = true;
 
     this.requiredInputs.forEach((input) => {
@@ -259,7 +261,8 @@ class VendorRegistrationHandler {
       }
     });
 
-    const isValid = isVariantSelected && isCategorySelected && isTermsAccepted && areRequiredFieldsFilled;
+    const isValid =
+      isVariantSelected && isCategorySelected && isTermsAccepted && areRequirementsAccepted && areRequiredFieldsFilled;
 
     this.updateButtonState(isValid);
     return isValid;
@@ -364,6 +367,14 @@ class VendorRegistrationHandler {
     if (!this.termsCheckbox?.checked) {
       this.termsCheckbox.closest('.custom-checkbox').classList.add('error');
     }
+
+    this.requirementCheckboxes.forEach((checkbox) => {
+      if (!checkbox.checked) {
+        checkbox.closest('.custom-checkbox').classList.add('error');
+      } else {
+        checkbox.closest('.custom-checkbox').classList.remove('error');
+      }
+    });
   }
 
   announceVariantStatus(isAvailable) {
