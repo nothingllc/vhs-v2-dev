@@ -2,6 +2,8 @@
 .product-form__item--submit {
   margin-top: 1rem;
   width: 100%;
+  border-radius: 4px;
+  background-color: color(srgb 0.0694 0.8057 0.7842);
   border: 1px solid #ccc;
   padding: 1rem;
   display: flex;
@@ -25,9 +27,13 @@
 /* Button Text */
 .btn.product-form__cart-submit [data-add-to-cart-text] {
   display: inline-block;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-family: var(--font-family, sans-serif);
+  font-weight: 600;
+  letter-spacing: 0.05em;
   line-height: 1.5;
-  color: var(--color-button-text);
+  color: white;
   text-align: center;
 }
 

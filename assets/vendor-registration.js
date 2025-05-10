@@ -7,10 +7,15 @@ class VendorRegistrationForm {
     this.progressIndicator = document.querySelector('.progress-indicator');
 
     this.currentStep = 1;
+    this.boundHandlers = new Map();
     this.init();
   }
 
   init() {
+    this.boundHandlers.set('toggleStep', this.toggleStep.bind(this));
+    this.boundHandlers.set('handleNavigation', this.handleNavigation.bind(this));
+    this.boundHandlers.set('validateForm', this.validateForm.bind(this));
+
     // Close all steps initially except first one
     this.steps.forEach((step, index) => {
       if (index === 0) {
@@ -21,7 +26,7 @@ class VendorRegistrationForm {
 
       // Add click listeners to step headers
       const header = step.querySelector('.step-header');
-      header.addEventListener('click', () => this.toggleStep(step));
+      header.addEventListener('click', this.boundHandlers.get('toggleStep'));
     });
 
     // Add navigation listeners
@@ -134,6 +139,18 @@ class VendorRegistrationForm {
       e.target.closest('form').submit();
     }
   }
+
+  destroy() {
+    this.steps.forEach((step) => {
+      const header = step.querySelector('.step-header');
+      header.removeEventListener('click', this.boundHandlers.get('toggleStep'));
+    });
+
+    this.boundHandlers.clear();
+    this.steps = null;
+    this.nextButtons = null;
+    this.prevButtons = null;
+  }
 }
 
 class VendorRegistrationHandler {
@@ -153,7 +170,22 @@ class VendorRegistrationHandler {
     // Track form submission state
     this.isSubmitting = false;
 
+    this.debouncedValidate = this.debounce(this.validateForm.bind(this), 300);
+    this.formState = new VendorRegistrationState();
+
     this.init();
+  }
+
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   }
 
   init() {
@@ -162,10 +194,30 @@ class VendorRegistrationHandler {
     this.variantSelect?.addEventListener('change', this.handleVariantChange.bind(this));
     this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
-    // Throttle validation on input/change
-    const throttledValidation = this.throttle(this.validateForm.bind(this), 300);
-    this.form.addEventListener('change', throttledValidation);
-    this.form.addEventListener('input', throttledValidation);
+    // Event delegation for form inputs
+    this.form.addEventListener('input', (event) => {
+      if (event.target.matches('input, select')) {
+        this.debouncedValidate();
+      }
+    });
+
+    // Use Intersection Observer for lazy validation
+    this.setupIntersectionObserver();
+  }
+
+  setupIntersectionObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.validateStep(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    this.steps.forEach((step) => observer.observe(step));
   }
 
   // Prevent duplicate submissions
@@ -220,7 +272,7 @@ class VendorRegistrationHandler {
     this.submitText.textContent = isValid ? window.theme.strings.addToCart : window.theme.strings.completeForm;
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
 
     if (!this.validateForm()) {
@@ -228,31 +280,61 @@ class VendorRegistrationHandler {
       return;
     }
 
-    this.startLoading();
+    const maxRetries = 3;
+    let attempt = 0;
 
+    while (attempt < maxRetries) {
+      try {
+        await this.submitForm();
+        break;
+      } catch (error) {
+        attempt++;
+        if (attempt === maxRetries) {
+          this.handleFatalError(error);
+        } else {
+          await this.wait(1000 * Math.pow(2, attempt)); // Exponential backoff
+        }
+      }
+    }
+  }
+
+  async submitForm() {
+    this.startLoading();
     const formData = new FormData(this.form);
 
-    fetch(this.form.action, {
+    const response = await fetch(this.form.action, {
       method: 'POST',
       body: formData,
       headers: {
         Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
       },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status) {
-          window.location.href = window.theme.routes.cart_url;
-        } else {
-          throw new Error(response.description || 'Error adding product to cart');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        this.stopLoading();
-        // Show error message to user
-        this.submitText.textContent = window.theme.strings.addToCartError;
-      });
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.status) {
+      window.location.href = window.theme.routes.cart_url;
+    } else {
+      throw new Error(data.description || 'Error adding product to cart');
+    }
+  }
+
+  handleFatalError(error) {
+    console.error('Fatal error:', error);
+    this.stopLoading();
+    this.formState.update({
+      error: error.message,
+      isSubmitting: false,
+    });
+  }
+
+  wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   startLoading() {
@@ -293,6 +375,35 @@ class VendorRegistrationHandler {
 
     this.form.appendChild(announcement);
     setTimeout(() => announcement.remove(), 1000);
+  }
+}
+
+class VendorRegistrationState {
+  constructor() {
+    this.state = {
+      currentStep: 1,
+      isValid: false,
+      isSubmitting: false,
+      errors: new Set(),
+      dirtyFields: new Set(),
+    };
+
+    this.listeners = new Set();
+  }
+
+  update(changes) {
+    const oldState = { ...this.state };
+    this.state = { ...this.state, ...changes };
+    this.notify(oldState);
+  }
+
+  subscribe(listener) {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  notify(oldState) {
+    this.listeners.forEach((listener) => listener(this.state, oldState));
   }
 }
 
