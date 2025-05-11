@@ -257,9 +257,12 @@
       }
     {% endstyle %}
 
-    {%- comment -%}Core stylesheets{%- endcomment -%}
+    {%- comment -%}Base stylesheets{%- endcomment -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%}Product form styles - load last for highest precedence{%- endcomment -%}
+    {{ 'product-form.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%}Product form styles for all products{%- endcomment -%}
     {%- if request.page_type == 'product' -%}
