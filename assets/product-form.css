@@ -249,3 +249,31 @@ input[type='checkbox'].requirement-checkbox:checked::after {
   color: var(--color-text) !important;
   margin-top: 0.25rem !important;
 }
+
+/* Field Group Responsive Widths */
+.field-group {
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+  width: 100% !important;
+  max-width: none !important;
+  display: block !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure consistent padding */
+.field-group input,
+.field-group select {
+  padding: 0.75rem !important;
+  min-height: 44px !important;
+}
+
+/* Reset any theme margins */
+.field-group * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
