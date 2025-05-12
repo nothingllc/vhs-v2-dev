@@ -1104,6 +1104,25 @@ summary::-webkit-details-marker {
   }
 }
 
+/* Product Media Wrapper */
+.grid__item.product__media-wrapper {
+  position: relative !important;
+  min-height: 10rem !important;
+  max-height: 20vh !important;
+  width: 100% !important;
+  background-image: url('{{ product.featured_media | image_url }}');
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  overflow: hidden !important;
+}
+
+@media screen and (min-width: 750px) {
+  .grid__item.product__media-wrapper {
+    min-height: 12rem !important;
+  }
+}
+
 /* component-media */
 .media {
   display: block;

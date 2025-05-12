@@ -76,7 +76,10 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} {% if product.media.size > 0 %}product--has-media{% else %}product--no-media{% endif %} product--layout-grid">
-      <div class="grid__item product__media-wrapper">
+      <div 
+        class="grid__item product__media-wrapper" 
+        style="background-image: url('{{ product.featured_media | image_url: width: 1500 }}');"
+      >
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class="grid__item product__map-wrapper">
