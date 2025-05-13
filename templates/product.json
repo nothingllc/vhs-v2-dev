@@ -151,7 +151,7 @@
         "image-with-text-1": {
           "type": "text",
           "settings": {
-            "text": "<p>Plan for arrivals and departures</p><p>Pack your me-ssentials</p><p>Get your goods</p><p>Weather here or there</p><p>Share and they will come!</p>",
+            "text": "<ul><li>Plan for arrivals and departures</li><li>Pack your me-ssentials</li><li>Get your goods</li><li>Weather here or there</li><li>Share and they will come!</li></ul>",
             "text_style": "body"
           }
         }
