@@ -66,6 +66,10 @@
           >
             {%- for block in section.blocks -%}
               {% case block.type %}
+                {%- when 'help_blurb' -%}
+                  <div class="image-with-text__help-text" {{ block.shopify_attributes }}>
+                    {{ block.settings.help_text }}
+                  </div>
                 {%- when 'heading' -%}
                   <h2
                     class="image-with-text__heading inline-richtext {{ block.settings.heading_size }}"
@@ -203,7 +207,7 @@
     {
       "type": "header",
       "content": "t:sections.image-with-text.settings.header.content"
-    }, 
+    },
     {
       "type": "select",
       "id": "content_layout",
@@ -219,7 +223,7 @@
       ],
       "default": "no-overlap",
       "label": "t:sections.image-with-text.settings.content_layout.label"
-    },       
+    },
     {
       "type": "select",
       "id": "desktop_content_position",
@@ -283,7 +287,7 @@
     {
       "type": "header",
       "content": "t:sections.image-with-text.settings.header_colors.content"
-    },        
+    },
     {
       "type": "color_scheme",
       "id": "section_color_scheme",
@@ -322,6 +326,19 @@
     }
   ],
   "blocks": [
+    {
+      "type": "help_blurb",
+      "name": "Help Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "help_text",
+          "label": "Help Text Content",
+          "default": "helpBlurb-text"
+        }
+      ]
+    },
     {
       "type": "heading",
       "name": "t:sections.image-with-text.blocks.heading.name",

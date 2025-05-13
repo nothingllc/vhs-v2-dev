@@ -372,6 +372,13 @@
   margin-bottom: 1rem;
 }
 
+.image-with-text__help-text {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
 @media screen and (max-width: 749px) {
   .collapse-padding .image-with-text__grid .image-with-text__content {
     padding-left: 0;
