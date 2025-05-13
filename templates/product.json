@@ -135,6 +135,12 @@
     "image-with-text": {
       "type": "image-with-text",
       "blocks": {
+        "help_blurb_Lp3Vry": {
+          "type": "help_blurb",
+          "settings": {
+            "help_text": "Che Che Check it out what's next!"
+          }
+        },
         "image-with-text-0": {
           "type": "heading",
           "settings": {
@@ -151,6 +157,7 @@
         }
       },
       "block_order": [
+        "help_blurb_Lp3Vry",
         "image-with-text-0",
         "image-with-text-1"
       ],
