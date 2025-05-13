@@ -138,7 +138,7 @@
         "help_blurb_Lp3Vry": {
           "type": "help_blurb",
           "settings": {
-            "help_text": "Che Che Check it out what's next!"
+            "help_text": "Prep for the pop up!"
           }
         },
         "image-with-text-0": {
@@ -151,7 +151,7 @@
         "image-with-text-1": {
           "type": "text",
           "settings": {
-            "text": "<h3>BYOT: Bring Your Own Tent!</h3><p>This option is incredible if you're ready with your own <em><strong>*white fabric*</strong></em> market tent. We will contact you directly to ensure your tent qualifies for safety, size and placement. This open is subject to limited availability.</p>",
+            "text": "<p>Plan for arrivals and departures</p><p>Pack your me-ssentials</p><p>Get your goods</p><p>Weather here or there</p><p>Share and they will come!</p>",
             "text_style": "body"
           }
         }
