@@ -1123,6 +1123,47 @@ summary::-webkit-details-marker {
   }
 }
 
+/* Product Grid Layout */
+.product--layout-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Unified Grid Item Heights */
+.grid__item.product__media-wrapper,
+.grid__item.product__map-wrapper {
+  min-height: 20rem !important;
+  max-height: 30rem !important;
+  width: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Media Content Styling */
+.grid__item.product__media-wrapper {
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+/* Map iframe Constraints */
+.grid__item.product__map-wrapper iframe {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+}
+
+/* Responsive Adjustments */
+@media screen and (min-width: 750px) {
+  .grid__item.product__media-wrapper,
+  .grid__item.product__map-wrapper {
+    min-height: 25rem !important;
+  }
+}
+
 /* component-media */
 .media {
   display: block;
