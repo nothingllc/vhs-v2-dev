@@ -46,10 +46,10 @@
       ],
       "settings": {
         "image": "shopify://shop_images/L1001866_JustinGaskinPhotography-19.jpg",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
+        "image_overlay_opacity": 10,
+        "image_height": "small",
         "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
+        "desktop_content_position": "top-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
         "color_scheme": "scheme-3",
@@ -65,7 +65,7 @@
           "type": "heading",
           "disabled": true,
           "settings": {
-            "heading": "Talk about your brand",
+            "heading": "2025 Now Booking",
             "heading_size": "h1"
           }
         },
@@ -219,7 +219,7 @@
         "background_style": "none",
         "color_scheme": "scheme-1",
         "columns_mobile": "1",
-        "swipe_on_mobile": false,
+        "swipe_on_mobile": true,
         "padding_top": 36,
         "padding_bottom": 36
       }
