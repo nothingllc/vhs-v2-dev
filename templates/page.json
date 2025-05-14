@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,9 +15,44 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "newsletter_CWieh8": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_JFXY6g": {
+          "type": "heading",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_fPfm83": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Our latest market dates, events and special promotions will all be announced to our awesome mailing list!<br/><br/>Sign up below and you'll get the best info for VHS Markets</p>"
+          }
+        },
+        "email_form_QerKPC": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_JFXY6g",
+        "paragraph_fPfm83",
+        "email_form_QerKPC"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "newsletter_CWieh8"
   ]
 }
