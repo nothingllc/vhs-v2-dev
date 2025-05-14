@@ -149,50 +149,6 @@
         "padding_bottom": 52
       }
     },
-    "rich_text_RVDi6z": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_zgqJHG": {
-          "type": "heading",
-          "settings": {
-            "heading": "What's is the Vendor Integrity Guide?",
-            "heading_size": "h1"
-          }
-        },
-        "text_Dz77eJ": {
-          "type": "text",
-          "settings": {
-            "text": "<h3>🌟 <strong>Welcome to VHS Markets: Where Quality Meets Community</strong></h3><p>At <strong>VHS Markets</strong>, we’re proud to partner with incredible local vendors like you—artists, creators, small businesses, and passionate craftspeople. Our mission is simple: <em>to spotlight authentic, high-quality goods</em> while fostering a thriving community of makers and buyers alike. To ensure everyone’s experience is positive and fair, we’ve created this guide to help keep things clear, honest, and fun!</p><h3>✅ <strong>What We Expect From Vendors</strong></h3><p>We’re here to support <em>your success</em>, but we do ask for honesty and transparency:</p><ul><li><strong>Be truthful</strong>: Misrepresentation (like hiding permits or claiming products are handmade when they aren’t) could lead to cancellation without refund. We take integrity seriously!</li><li><strong>Check your paperwork</strong>: If you sell food, consumables, or items requiring  permits <em>before</em> registration, contact us to submit those documents ahead of time. </li></ul><h3>🛑 <strong>What Happens if Things Go Sideways?</strong></h3><p>We’re all about collaboration, but we can’t ignore red flags:</p><ul><li>If we later discover your application was incomplete or misleading (whether intentional or not), <em>your spot might be revoked</em> without refund. It’s a bummer for everyone, so let’s avoid that!</li></ul><h3>🎯 <strong>What We Review in Applications</strong></h3><p>Our team carefully checks submissions to ensure everything aligns with our values:</p><ul><li>✅ <strong>Handmade/local/ethical</strong>: Products must reflect your creativity or local sourcing—no mass-produced items passed off as “yours.”</li><li>✅ <strong>No false claims</strong>: Avoid marketing goods with performance promises we can’t verify (e.g., “miracle ingredients” without proof).</li><li>✅ <strong>Transparent origins</strong>: No products from unverifiable sources, MLMs, or organizations with questionable structures.</li></ul><h3>🛍️ <strong>What We Don’t Handle</strong></h3><p>VHS Markets is your event partner—but not your business manager!</p><ul><li>We provide venues, logistics, and community support. <em>We’re not responsible for</em> sales numbers, product quality, transportation, or legal matters tied to your brand. Let’s stay clear on that so everyone stays happy!</li></ul><h3>💬 <strong>Need Help? Ask Us First</strong></h3><p>If you’re unsure about anything (permits? eligibility?), our team is here to help <strong>before</strong> things go wrong. Just reach out via email or in person—we’d rather collaborate than penalize!</p><p>Thank you for being part of a community that values authenticity, fairness, and fun. Let’s make this market season amazing together! 🌟</p>"
-          }
-        },
-        "button_PTHeDY": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_zgqJHG",
-        "text_Dz77eJ",
-        "button_PTHeDY"
-      ],
-      "name": "t:sections.rich-text.presets.name",
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "left",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
     "newsletter_CWieh8": {
       "type": "newsletter",
       "blocks": {
@@ -233,7 +189,6 @@
     "rich_text_AJtfyG",
     "rich_text_dxKi86",
     "rich_text_8yxprL",
-    "rich_text_RVDi6z",
     "newsletter_CWieh8"
   ]
 }
