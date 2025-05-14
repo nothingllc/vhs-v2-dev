@@ -1,0 +1,239 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_AJtfyG": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Yn7hFz": {
+          "type": "heading",
+          "settings": {
+            "heading": "This is my first market! What can I expect?",
+            "heading_size": "h2"
+          }
+        },
+        "text_HNPLg9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>On the day of the event, arrive at the designated time with everything you need for a great market day. We'll greet you and help you to get to your space if needed.</p><p>Some markets have assigned placements before the date, others will be assigned when you arrive. We do not have -first-come-first-get vendor placements. Please check-in with a staff member to be assigned your vendor placement. Changes to placement after you are assigned can't be accommodated as other vendors are being welcomed.</p><p>Everyone is buzzing around at the start of the day, so be patient, get your bearings and start setting up.</p>"
+          }
+        },
+        "button_W3fgRa": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Yn7hFz",
+        "text_HNPLg9",
+        "button_W3fgRa"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_dxKi86": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_HFXXVt": {
+          "type": "heading",
+          "settings": {
+            "heading": "Vendor Expectations",
+            "heading_size": "h2"
+          }
+        },
+        "text_Aw47eR": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We’re all about making each market a blast for sales, networking, and exploring the city. With your amazing skills, hard work, and friendly community spirit, we hope to see a huge turnout and lots of customers.<br/><br/>To help your business and the market shine, all vendors are welcome to feel at ease during the event. If anything gets out of hand and needs the VHS staff or the public to calm things down, our trained team is ready to make sure everyone’s safe.<br/><br/>As a Vendor, VHS Markets only takes care of the venue and the event. If anything needs outside help, just reach out to a VHS staff member in person or by email.</p>"
+          }
+        },
+        "button_dDHBwR": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_HFXXVt",
+        "text_Aw47eR",
+        "button_dDHBwR"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_8yxprL": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_zNxpB8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Arrivals and Departures",
+            "heading_size": "h2"
+          }
+        },
+        "text_N4cPxM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Life is busy, and we get it. Plans can change. We hope everyone can make it for the event they've chosen and stay for the whole day.</p><p>Vendors are expected to attend each event for the full duration. Leaving early can cause a few areas everyone would like to avoid like, confusion about the market schedule, loading area traffic jams or blocking accessibility routs or parking spots.</p>"
+          }
+        },
+        "button_9XMzyf": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_zNxpB8",
+        "text_N4cPxM",
+        "button_9XMzyf"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_RVDi6z": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_zgqJHG": {
+          "type": "heading",
+          "settings": {
+            "heading": "What's is the Vendor Integrity Guide?",
+            "heading_size": "h1"
+          }
+        },
+        "text_Dz77eJ": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>🌟 <strong>Welcome to VHS Markets: Where Quality Meets Community</strong></h3><p>At <strong>VHS Markets</strong>, we’re proud to partner with incredible local vendors like you—artists, creators, small businesses, and passionate craftspeople. Our mission is simple: <em>to spotlight authentic, high-quality goods</em> while fostering a thriving community of makers and buyers alike. To ensure everyone’s experience is positive and fair, we’ve created this guide to help keep things clear, honest, and fun!</p><h3>✅ <strong>What We Expect From Vendors</strong></h3><p>We’re here to support <em>your success</em>, but we do ask for honesty and transparency:</p><ul><li><strong>Be truthful</strong>: Misrepresentation (like hiding permits or claiming products are handmade when they aren’t) could lead to cancellation without refund. We take integrity seriously!</li><li><strong>Check your paperwork</strong>: If you sell food, consumables, or items requiring  permits <em>before</em> registration, contact us to submit those documents ahead of time. </li></ul><h3>🛑 <strong>What Happens if Things Go Sideways?</strong></h3><p>We’re all about collaboration, but we can’t ignore red flags:</p><ul><li>If we later discover your application was incomplete or misleading (whether intentional or not), <em>your spot might be revoked</em> without refund. It’s a bummer for everyone, so let’s avoid that!</li></ul><h3>🎯 <strong>What We Review in Applications</strong></h3><p>Our team carefully checks submissions to ensure everything aligns with our values:</p><ul><li>✅ <strong>Handmade/local/ethical</strong>: Products must reflect your creativity or local sourcing—no mass-produced items passed off as “yours.”</li><li>✅ <strong>No false claims</strong>: Avoid marketing goods with performance promises we can’t verify (e.g., “miracle ingredients” without proof).</li><li>✅ <strong>Transparent origins</strong>: No products from unverifiable sources, MLMs, or organizations with questionable structures.</li></ul><h3>🛍️ <strong>What We Don’t Handle</strong></h3><p>VHS Markets is your event partner—but not your business manager!</p><ul><li>We provide venues, logistics, and community support. <em>We’re not responsible for</em> sales numbers, product quality, transportation, or legal matters tied to your brand. Let’s stay clear on that so everyone stays happy!</li></ul><h3>💬 <strong>Need Help? Ask Us First</strong></h3><p>If you’re unsure about anything (permits? eligibility?), our team is here to help <strong>before</strong> things go wrong. Just reach out via email or in person—we’d rather collaborate than penalize!</p><p>Thank you for being part of a community that values authenticity, fairness, and fun. Let’s make this market season amazing together! 🌟</p>"
+          }
+        },
+        "button_PTHeDY": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_zgqJHG",
+        "text_Dz77eJ",
+        "button_PTHeDY"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "newsletter_CWieh8": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_JFXY6g": {
+          "type": "heading",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_fPfm83": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Our latest market dates, events and special promotions will all be announced to our awesome mailing list!<br/><br/>Sign up below and you'll get the best info for VHS Markets</p>"
+          }
+        },
+        "email_form_QerKPC": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_JFXY6g",
+        "paragraph_fPfm83",
+        "email_form_QerKPC"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_AJtfyG",
+    "rich_text_dxKi86",
+    "rich_text_8yxprL",
+    "rich_text_RVDi6z",
+    "newsletter_CWieh8"
+  ]
+}
