@@ -279,14 +279,14 @@
         "heading_U4wHP8": {
           "type": "heading",
           "settings": {
-            "heading": "Subscribe to our emails",
-            "heading_size": "h1"
+            "heading": "Join The List",
+            "heading_size": "h2"
           }
         },
         "paragraph_wU3LdF": {
           "type": "paragraph",
           "settings": {
-            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+            "text": "<p>Our latest market dates, events and special promotions will all be announced to our awesome mailing list!<br/><br/>Sign up below and you'll get the best info for VHS Markets.</p>"
           }
         },
         "email_form_dtRFMq": {
@@ -301,7 +301,7 @@
       ],
       "name": "t:sections.newsletter.presets.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "full_width": true,
         "padding_top": 40,
         "padding_bottom": 52
