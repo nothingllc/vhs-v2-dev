@@ -157,6 +157,54 @@
         "padding_bottom": 36
       }
     },
+    "image_with_text_NHPYKr": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_Tm6HU3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Vendor Perks",
+            "heading_size": "h1"
+          }
+        },
+        "text_bUDgGV": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>We've got you covered.</strong></p><p><strong>No tent? No problem. </strong>Vendor Fees include tent coverage for everyone.</p><p><strong>Show up, set up and shine for shoppers! </strong>Table rentals are also available for all vendors.</p><p><strong>Markets marketing!</strong> Event advertising and shareable event imagery get noticed by thousands of shoppers and patrons.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_UCNTrc": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_Tm6HU3",
+        "text_bUDgGV",
+        "button_UCNTrc"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/L1005482.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "video": {
       "type": "video",
       "settings": {
@@ -230,6 +278,7 @@
     "rich_text",
     "featured_collection",
     "collage",
+    "image_with_text_NHPYKr",
     "video",
     "multicolumn"
   ]
