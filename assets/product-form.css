@@ -277,3 +277,43 @@ input[type='checkbox'].requirement-checkbox:checked::after {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+/* Cart notification */
+.cart-notification {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f1f8e9;
+  border: 1px solid #c5e1a5;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.cart-notification a {
+  color: #388e3c;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+
+.loading-spinner .spinner {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hide {
+  display: none;
+}
