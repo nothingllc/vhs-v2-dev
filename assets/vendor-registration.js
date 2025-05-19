@@ -28,46 +28,56 @@
     if (form.checkValidity()) {
       event.preventDefault(); // Prevent default submission
 
-      const button = form.querySelector('.product-form__cart-submit');
-      const btnTextWrapper = button.querySelector('.btn-text-slider__wrapper');
+      // Get form data and make sure variant ID is included
+      const formData = new FormData(form);
+      const variantId = form.querySelector('select[name="id"]').value;
 
-      // Disable button during animation
+      if (!variantId) {
+        console.error('Missing variant ID in form submission');
+        return;
+      }
+
+      // Disable button during submission
+      const button = form.querySelector('.product-form__cart-submit');
       button.setAttribute('disabled', 'disabled');
 
-      // First animation - slide to success message
-      btnTextWrapper.classList.add('btn-text-slider__wrapper--slide-right');
+      // Submit via AJAX
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status) {
+            // Trigger animation on success
+            const event = new CustomEvent('vendor:cart:added', {
+              detail: { form: form, response: data },
+            });
+            document.dispatchEvent(event);
 
-      // Wait then slide back and submit form
-      setTimeout(function () {
-        // Slide back after delay
-        setTimeout(function () {
-          btnTextWrapper.classList.remove('btn-text-slider__wrapper--slide-right');
-          btnTextWrapper.classList.add('btn-text-slider__wrapper--slide-reset');
-
-          // Wait for animation to complete then submit form
-          setTimeout(function () {
-            // Remove animation classes
-            btnTextWrapper.classList.remove('btn-text-slider__wrapper--slide-reset');
-
-            // Show notification
-            const notification = document.getElementById('cart-notification');
-            if (notification) {
-              notification.style.display = 'block';
-
-              // Hide notification after delay
-              setTimeout(function () {
-                notification.style.display = 'none';
-              }, 5000);
-            }
-
-            // Re-enable button
-            button.removeAttribute('disabled');
-
-            // Submit the form
-            form.submit();
-          }, 300);
-        }, 1500);
-      }, 100);
+            // Don't redirect immediately, let animation complete
+            setTimeout(() => {
+              window.location.href = window.theme.routes.cart_url;
+            }, 2500);
+          } else {
+            throw new Error(data.description || 'Error adding product to cart');
+          }
+        })
+        .catch((error) => {
+          console.error('Submission error:', error);
+          button.removeAttribute('disabled');
+          // Show error message to user
+          const notification = document.getElementById('cart-notification');
+          if (notification) {
+            notification.textContent = 'Error: ' + error.message;
+            notification.style.display = 'block';
+            notification.classList.add('error');
+          }
+        });
     }
   }
 
