@@ -77,6 +77,15 @@ class RegistrationFormSubmit extends HTMLElement {
         detail: { data },
       })
     );
+
+    // Dispatch custom event for the animation handler
+    const event = new CustomEvent('vendor:cart:added', {
+      detail: {
+        form: this.form,
+        response: data,
+      },
+    });
+    document.dispatchEvent(event);
   }
 
   handleError(error) {

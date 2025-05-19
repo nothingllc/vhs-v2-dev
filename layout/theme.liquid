@@ -310,6 +310,8 @@
       >
     {%- endif -%}
 
+    {{ 'vendor-registration-animations.css' | asset_url | stylesheet_tag }}
+
     <script>
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
@@ -399,5 +401,7 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {{ 'vendor-registration.js' | asset_url | script_tag }}
   </body>
 </html>

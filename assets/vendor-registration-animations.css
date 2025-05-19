@@ -1,0 +1,42 @@
+/**
+ * Button Animation Styles
+ * - Handles the sliding text effect for the add to cart button
+ */
+
+/* Container for the sliding text */
+.btn-text-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.btn-text-slider__wrapper {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-text-slider__item {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+/* Slide animation classes */
+.btn-text-slider__wrapper--slide-right {
+  transform: translateX(-50%);
+}
+
+.btn-text-slider__wrapper--slide-reset {
+  transition: transform 0.3s ease-out;
+  transform: translateX(0);
+}
+
+/* Ensure button maintains consistent height during animation */
+.product-form__cart-submit {
+  position: relative;
+}

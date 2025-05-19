@@ -189,13 +189,18 @@
         class="btn product-form__cart-submit"
         data-add-to-cart
       >
-        <span data-add-to-cart-text>
-          {%- if product.selected_or_first_available_variant.available -%}
-            {{ 'products.product.add_to_cart' | t }}
-          {%- else -%}
-            {{ 'products.product.sold_out' | t }}
-          {%- endif -%}
-        </span>
+        <div class="btn-text-slider">
+          <div class="btn-text-slider__wrapper">
+            <span class="btn-text-slider__item btn-text-slider__item--default" data-add-to-cart-text>
+              {%- if product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+            <span class="btn-text-slider__item btn-text-slider__item--success"> Date Added! </span>
+          </div>
+        </div>
         <span class="loading-spinner hide" data-loader>
           <svg
             aria-hidden="true"
