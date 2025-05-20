@@ -69,6 +69,26 @@
           if (notification) {
             notification.style.display = 'block';
 
+            // Fetch current cart to get accurate count
+            fetch('/cart.js')
+              .then((response) => response.json())
+              .then((cartData) => {
+                // Update counter text
+                const cartCountElem = document.querySelector('.cart-notification__textNum');
+                if (cartCountElem) {
+                  cartCountElem.textContent = cartData.item_count;
+                }
+
+                // Reveal the cart update notification with animation
+                const cartUpdateElem = document.querySelector('.cart-notification__textUpdate');
+                if (cartUpdateElem) {
+                  // Delay the animation slightly for a better sequence
+                  setTimeout(() => {
+                    cartUpdateElem.classList.add('active');
+                  }, 300);
+                }
+              });
+
             // Reset variant dropdown
             const variantSelect = document.getElementById('productSelect-' + form.dataset.sectionId);
             if (variantSelect) {
