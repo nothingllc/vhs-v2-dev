@@ -1,26 +1,42 @@
 (function () {
-  // Simple feature detection
+  'use strict';
+
+  // Feature detection
   if (!window.fetch) return;
+
+  // Namespace to avoid conflicts
+  window.VendorCart = window.VendorCart || {};
 
   // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('vendor-registration-form');
-    if (!form) return;
+    if (!form || window.VendorCart.initialized) return;
 
-    // Get elements
-    const submitButton = form.querySelector('[data-add-to-cart]');
-    const submitText = submitButton.querySelector('[data-add-to-cart-text]');
-    const loader = submitButton.querySelector('[data-loader]');
-    const notification = document.getElementById('cart-notification');
+    // Mark as initialized to prevent multiple handlers
+    window.VendorCart.initialized = true;
 
-    // Add submit handler
-    form.addEventListener('submit', function (event) {
-      // Always prevent default form submission to avoid page reload
+    // Cache elements
+    const elements = {
+      form: form,
+      submitButton: form.querySelector('[data-add-to-cart]'),
+      submitText: form.querySelector('[data-add-to-cart-text]'),
+      loader: form.querySelector('[data-loader]'),
+      notification: document.getElementById('cart-notification'),
+      cartUpdateElem: document.querySelector('.cart-notification__textUpdate'),
+      cartCountElem: document.querySelector('.cart-notification__textNum'),
+    };
+
+    // Add our controlled submit handler with high priority
+    elements.form.addEventListener('submit', handleFormSubmit, true);
+
+    function handleFormSubmit(event) {
+      // CRITICAL: Always prevent default and stop propagation
       event.preventDefault();
+      event.stopImmediatePropagation();
 
       // Only proceed if form is valid
       if (!this.checkValidity()) {
-        return;
+        return false;
       }
 
       // Get necessary form data
@@ -29,13 +45,13 @@
 
       if (!variantId) {
         console.error('Missing variant ID');
-        return;
+        return false;
       }
 
       // Disable button and show loader
-      if (submitButton) {
-        submitButton.disabled = true;
-        const loaderElement = submitButton.querySelector('[data-loader]');
+      if (elements.submitButton) {
+        elements.submitButton.disabled = true;
+        const loaderElement = elements.submitButton.querySelector('[data-loader]');
         if (loaderElement) loaderElement.classList.remove('hide');
       }
 
@@ -62,62 +78,66 @@
       })
         .then((response) => response.json())
         .then((data) => {
-          // Hide loader
-          const loaderElement = submitButton?.querySelector('[data-loader]');
-          if (loaderElement) loaderElement.classList.add('hide');
-
-          // Success - show notification
-          if (notification) {
-            notification.style.display = 'block';
-          }
-
-          // Animate button
-          const buttonWrapper = submitButton?.querySelector('.btn-text-slider__wrapper');
-          if (buttonWrapper) {
-            buttonWrapper.classList.add('btn-text-slider__wrapper--slide-right');
-          }
-
-          // Fetch cart count and update the counter
-          fetch('/cart.js')
-            .then((response) => response.json())
-            .then((cartData) => {
-              const cartCountElem = document.querySelector('.cart-notification__textNum');
-              if (cartCountElem) {
-                cartCountElem.textContent = cartData.item_count;
-              }
-
-              const cartUpdateElem = document.querySelector('.cart-notification__textUpdate');
-              if (cartUpdateElem) {
-                setTimeout(() => {
-                  cartUpdateElem.classList.add('active');
-                }, 300);
-              }
-            });
-
-          // Reset button after animation
-          setTimeout(() => {
-            if (buttonWrapper) {
-              buttonWrapper.classList.remove('btn-text-slider__wrapper--slide-right');
-            }
-
-            // Re-enable the button after animations complete
-            setTimeout(() => {
-              submitButton.disabled = false;
-
-              // Reset form for another potential submission
-              resetForm(form);
-            }, 300);
-          }, 2000);
+          handleSuccess(data);
         })
         .catch((error) => {
-          console.error('Error adding to cart:', error);
-          submitButton.disabled = false;
-          const loaderElement = submitButton?.querySelector('[data-loader]');
-          if (loaderElement) loaderElement.classList.add('hide');
+          handleError(error);
         });
-    });
 
-    // Function to reset form to initial state
+      return false;
+    }
+
+    function handleSuccess(data) {
+      // Hide loader
+      const loaderElement = elements.submitButton?.querySelector('[data-loader]');
+      if (loaderElement) loaderElement.classList.add('hide');
+
+      // Success - show notification
+      if (elements.notification) {
+        elements.notification.style.display = 'block';
+      }
+
+      // Animate button
+      const buttonWrapper = elements.submitButton?.querySelector('.btn-text-slider__wrapper');
+      if (buttonWrapper) {
+        buttonWrapper.classList.add('btn-text-slider__wrapper--slide-right');
+      }
+
+      // Fetch cart count and update the counter
+      fetch('/cart.js')
+        .then((response) => response.json())
+        .then((cartData) => {
+          if (elements.cartCountElem) {
+            elements.cartCountElem.textContent = cartData.item_count;
+          }
+
+          if (elements.cartUpdateElem) {
+            setTimeout(() => {
+              elements.cartUpdateElem.classList.add('active');
+            }, 300);
+          }
+        });
+
+      // Reset button after animation
+      setTimeout(() => {
+        if (buttonWrapper) {
+          buttonWrapper.classList.remove('btn-text-slider__wrapper--slide-right');
+        }
+
+        setTimeout(() => {
+          elements.submitButton.disabled = false;
+          resetForm(elements.form);
+        }, 300);
+      }, 2000);
+    }
+
+    function handleError(error) {
+      console.error('Error adding to cart:', error);
+      elements.submitButton.disabled = false;
+      const loaderElement = elements.submitButton?.querySelector('[data-loader]');
+      if (loaderElement) loaderElement.classList.add('hide');
+    }
+
     function resetForm(form) {
       // Reset variant selection
       const variantSelect = form.querySelector('select[name="id"]');
@@ -136,7 +156,6 @@
           }
         });
 
-        // Reset progress indicators
         const progressSteps = form.querySelectorAll('.progress-step');
         if (progressSteps.length > 0) {
           progressSteps.forEach((step, index) => {
@@ -148,8 +167,29 @@
           });
         }
       }
+    }
 
-      // Don't reset checkboxes or text inputs to make it faster for users to submit multiple dates
+    // Override any window location changes that might redirect to cart
+    const originalLocationSetter =
+      Object.getOwnPropertyDescriptor(window, 'location') ||
+      Object.getOwnPropertyDescriptor(Window.prototype, 'location');
+
+    if (originalLocationSetter && originalLocationSetter.set) {
+      Object.defineProperty(window, 'location', {
+        set: function (url) {
+          // Block cart redirects during our form submission process
+          if (
+            elements.submitButton &&
+            elements.submitButton.disabled &&
+            (url.includes('/cart') || url.includes('cart_url'))
+          ) {
+            console.log('Blocked automatic cart redirect:', url);
+            return;
+          }
+          originalLocationSetter.set.call(this, url);
+        },
+        get: originalLocationSetter.get,
+      });
     }
   });
 })();

@@ -41,7 +41,16 @@
   position: relative;
 }
 
-/* Cart count notification - hidden by default */
+/* Prevent form double submission and conflicts */
+form[data-submitting='true'] {
+  pointer-events: none;
+}
+
+form[data-submitting='true'] button[type='submit'] {
+  pointer-events: auto;
+}
+
+/* Cart count notification styles */
 .cart-notification__textUpdate {
   margin-top: 15px;
   overflow: hidden;
@@ -50,13 +59,11 @@
   transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out 0.1s;
 }
 
-/* Active state - revealed */
 .cart-notification__textUpdate.active {
-  max-height: 50px; /* Set to a value larger than the content height */
+  max-height: 50px;
   opacity: 1;
 }
 
-/* Style the content */
 .cart-notification__textUpdate p {
   display: flex;
   align-items: center;
@@ -69,13 +76,9 @@
   font-weight: bold;
 }
 
-/* Match icon size to text in cart notification */
 .cart-notification__textUpdate .icon--checkmark {
   width: 1em;
   height: 1em;
   vertical-align: middle;
   fill: #2ecc71;
-  margin-left: 0.25em;
-  position: relative;
-  top: -0.05em;
 }

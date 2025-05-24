@@ -14,71 +14,8 @@
     const form = document.getElementById('vendor-registration-form');
     if (!form) return;
 
-    // Handle form submission
-    form.addEventListener('submit', handleFormSubmit);
-
     // Initialize other form functionality
     initFormSteps();
-  }
-
-  function handleFormSubmit(event) {
-    const form = event.currentTarget;
-
-    // Only proceed if form is valid
-    if (form.checkValidity()) {
-      event.preventDefault(); // Prevent default submission
-
-      // Get form data and make sure variant ID is included
-      const formData = new FormData(form);
-      const variantId = form.querySelector('select[name="id"]').value;
-
-      if (!variantId) {
-        console.error('Missing variant ID in form submission');
-        return;
-      }
-
-      // Disable button during submission
-      const button = form.querySelector('.product-form__cart-submit');
-      button.setAttribute('disabled', 'disabled');
-
-      // Submit via AJAX
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status) {
-            // Trigger animation on success
-            const event = new CustomEvent('vendor:cart:added', {
-              detail: { form: form, response: data },
-            });
-            document.dispatchEvent(event);
-
-            // Don't redirect immediately, let animation complete
-            setTimeout(() => {
-              window.location.href = window.theme.routes.cart_url;
-            }, 2500);
-          } else {
-            throw new Error(data.description || 'Error adding product to cart');
-          }
-        })
-        .catch((error) => {
-          console.error('Submission error:', error);
-          button.removeAttribute('disabled');
-          // Show error message to user
-          const notification = document.getElementById('cart-notification');
-          if (notification) {
-            notification.textContent = 'Error: ' + error.message;
-            notification.style.display = 'block';
-            notification.classList.add('error');
-          }
-        });
-    }
   }
 
   function initFormSteps() {
@@ -277,7 +214,6 @@
         if (!this.form) return;
 
         this.variantSelect?.addEventListener('change', this.handleVariantChange.bind(this));
-        this.form.addEventListener('submit', this.handleSubmit.bind(this));
 
         // Event delegation for form inputs
         this.form.addEventListener('input', (event) => {
@@ -303,18 +239,6 @@
         );
 
         this.steps.forEach((step) => observer.observe(step));
-      }
-
-      // Prevent duplicate submissions
-      throttle(func, limit) {
-        let inThrottle;
-        return function (...args) {
-          if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => (inThrottle = false), limit);
-          }
-        };
       }
 
       handleVariantChange(event) {
@@ -361,85 +285,6 @@
         this.submitButton.setAttribute('aria-disabled', !isValid);
 
         this.submitText.textContent = isValid ? window.theme.strings.addToCart : window.theme.strings.completeForm;
-      }
-
-      async handleSubmit(evt) {
-        evt.preventDefault();
-
-        if (!this.validateForm()) {
-          this.highlightIncompleteFields();
-          return;
-        }
-
-        const maxRetries = 3;
-        let attempt = 0;
-
-        while (attempt < maxRetries) {
-          try {
-            await this.submitForm();
-            break;
-          } catch (error) {
-            attempt++;
-            if (attempt === maxRetries) {
-              this.handleFatalError(error);
-            } else {
-              await this.wait(1000 * Math.pow(2, attempt)); // Exponential backoff
-            }
-          }
-        }
-      }
-
-      async submitForm() {
-        this.startLoading();
-        const formData = new FormData(this.form);
-
-        const response = await fetch(this.form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data.status) {
-          window.location.href = window.theme.routes.cart_url;
-        } else {
-          throw new Error(data.description || 'Error adding product to cart');
-        }
-      }
-
-      handleFatalError(error) {
-        console.error('Fatal error:', error);
-        this.stopLoading();
-        this.formState.update({
-          error: error.message,
-          isSubmitting: false,
-        });
-      }
-
-      wait(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-      }
-
-      startLoading() {
-        this.submitButton.classList.add('loading');
-        this.submitText.classList.add('hide');
-        this.loader.classList.remove('hide');
-        this.submitButton.disabled = true;
-      }
-
-      stopLoading() {
-        this.submitButton.classList.remove('loading');
-        this.submitText.classList.remove('hide');
-        this.loader.classList.add('hide');
-        this.submitButton.disabled = false;
       }
 
       highlightIncompleteFields() {
@@ -522,9 +367,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const vendorForm = document.getElementById('vendor-registration-form');
   if (!vendorForm) return;
 
-  // Store original form submission handler
-  const originalSubmitHandler = vendorForm.onsubmit;
-
   // Listen for a custom event that will be triggered after successful AJAX submission
   document.addEventListener('vendor:cart:added', function (event) {
     // Only proceed if this is our form's submission
@@ -556,19 +398,81 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 2000);
     }
   });
-
-  // Handle the form submission
-  vendorForm.addEventListener('submit', function (event) {
-    // Don't intercept if form is invalid
-    if (!this.checkValidity()) return;
-
-    // Disable button to prevent double submissions
-    const submitButton = this.querySelector('button[type="submit"]');
-    if (submitButton) {
-      submitButton.disabled = true;
-    }
-
-    // Don't interfere with the original AJAX submission
-    // Let the existing handlers do their work
-  });
 });
+
+/**
+ * Enhanced Debug: Cart redirect interceptor with more comprehensive tracking
+ */
+(function () {
+  'use strict';
+
+  console.log('🔍 Enhanced debug mode activated');
+
+  // Track all fetch requests
+  const originalFetch = window.fetch;
+  window.fetch = function (...args) {
+    console.log('🌐 Fetch request:', args[0], args[1]);
+    return originalFetch
+      .apply(this, arguments)
+      .then((response) => {
+        console.log('✅ Fetch response:', response.status, response.url);
+        return response;
+      })
+      .catch((error) => {
+        console.log('❌ Fetch error:', error);
+        throw error;
+      });
+  };
+
+  // Intercept form submissions
+  document.addEventListener(
+    'submit',
+    function (e) {
+      console.log('📝 Form submitted:', e.target.id || e.target.className, e.target.action);
+      console.trace('Form submission stack trace:');
+    },
+    true
+  );
+
+  // Track navigation attempts
+  const originalPushState = history.pushState;
+  const originalReplaceState = history.replaceState;
+
+  history.pushState = function () {
+    console.log('🔄 History pushState called:', arguments);
+    return originalPushState.apply(history, arguments);
+  };
+
+  history.replaceState = function () {
+    console.log('🔄 History replaceState called:', arguments);
+    return originalReplaceState.apply(history, arguments);
+  };
+
+  // Monitor window.location changes more effectively
+  let currentLocation = window.location.href;
+  setInterval(() => {
+    if (window.location.href !== currentLocation) {
+      console.log('🚀 Location changed from:', currentLocation, 'to:', window.location.href);
+      console.trace('Location change detection:');
+      currentLocation = window.location.href;
+    }
+  }, 100);
+
+  // Track any programmatic redirects
+  const originalAssign = window.location.assign;
+  const originalReplace = window.location.replace;
+
+  window.location.assign = function (url) {
+    console.log('🎯 Location.assign called:', url);
+    console.trace('Location.assign stack trace:');
+    return originalAssign.call(this, url);
+  };
+
+  window.location.replace = function (url) {
+    console.log('🎯 Location.replace called:', url);
+    console.trace('Location.replace stack trace:');
+    return originalReplace.call(this, url);
+  };
+
+  console.log('🔍 Enhanced debug interceptors active');
+})();
