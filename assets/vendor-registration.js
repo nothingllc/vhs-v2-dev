@@ -14,9 +14,18 @@
     const form = document.getElementById('vendor-registration-form');
     if (!form) return;
 
+    // REMOVED: Duplicate form submission handler
+    // form.addEventListener('submit', handleFormSubmit);
+
     // Initialize other form functionality
     initFormSteps();
   }
+
+  // COMMENTED OUT: This function was causing duplicate submissions
+  // function handleFormSubmit(event) {
+  //   const form = event.currentTarget;
+  //   // ... rest of the function
+  // }
 
   function initFormSteps() {
     class VendorRegistrationForm {
@@ -215,6 +224,9 @@
 
         this.variantSelect?.addEventListener('change', this.handleVariantChange.bind(this));
 
+        // REMOVED: Duplicate form submission handler that was causing cart redirects
+        // this.form.addEventListener('submit', this.handleSubmit.bind(this));
+
         // Event delegation for form inputs
         this.form.addEventListener('input', (event) => {
           if (event.target.matches('input, select')) {
@@ -286,6 +298,12 @@
 
         this.submitText.textContent = isValid ? window.theme.strings.addToCart : window.theme.strings.completeForm;
       }
+
+      // COMMENTED OUT: This method was causing duplicate submissions and cart redirects
+      // async handleSubmit(evt) {
+      //   evt.preventDefault();
+      //   // ... rest of the method
+      // }
 
       highlightIncompleteFields() {
         this.requiredInputs.forEach((input) => {
@@ -398,6 +416,9 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 2000);
     }
   });
+
+  // REMOVED: This duplicate form submission handler was causing issues
+  // vendorForm.addEventListener('submit', function (event) { ... });
 });
 
 /**

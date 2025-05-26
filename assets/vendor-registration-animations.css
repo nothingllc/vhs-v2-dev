@@ -60,7 +60,7 @@ form[data-submitting='true'] button[type='submit'] {
 }
 
 .cart-notification__textUpdate.active {
-  max-height: 50px;
+  max-height: 80px; /* Increased to accommodate the link */
   opacity: 1;
 }
 
@@ -81,4 +81,41 @@ form[data-submitting='true'] button[type='submit'] {
   height: 1em;
   vertical-align: middle;
   fill: #2ecc71;
+}
+
+/* Cart actions container */
+.cart-notification__actions {
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+}
+
+.cart-notification__textUpdate.active .cart-notification__actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cart link styling */
+.cart-notification__link {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.cart-notification__link:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+  color: white;
+}
+
+.cart-notification__link:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }
