@@ -60,43 +60,39 @@ form[data-submitting='true'] button[type='submit'] {
 }
 
 .cart-notification__textUpdate.active {
-  max-height: 80px; /* Increased to accommodate the link */
+  max-height: 60px;
   opacity: 1;
 }
 
-.cart-notification__textUpdate p {
+.cart-notification__container {
   display: flex;
   align-items: center;
-  gap: 0.25em;
-  margin: 8px 0;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 8px 0;
+}
+
+.cart-notification__count-display {
+  flex: 1;
+}
+
+.cart-notification__count-display p {
+  display: flex;
+  align-items: center;
+  margin: 0;
   font-size: 0.9em;
 }
 
 .cart-notification__textNum {
   font-weight: bold;
+  margin: 0 4px;
 }
 
-.cart-notification__textUpdate .icon--checkmark {
-  width: 1em;
-  height: 1em;
-  vertical-align: middle;
-  fill: #2ecc71;
-}
-
-/* Cart actions container */
 .cart-notification__actions {
-  margin-top: 8px;
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+  flex: 0 0 auto;
+  margin-left: 20px;
 }
 
-.cart-notification__textUpdate.active .cart-notification__actions {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Cart link styling */
 .cart-notification__link {
   display: inline-block;
   padding: 6px 12px;
@@ -107,6 +103,7 @@ form[data-submitting='true'] button[type='submit'] {
   font-size: 0.85em;
   font-weight: 500;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
 .cart-notification__link:hover {
@@ -115,7 +112,9 @@ form[data-submitting='true'] button[type='submit'] {
   color: white;
 }
 
-.cart-notification__link:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
+.cart-notification__textUpdate .icon--checkmark {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: #2ecc71;
 }
