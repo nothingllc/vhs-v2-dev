@@ -1,0 +1,149 @@
+<div class="section-{{ section.id }}-padding">
+  <div class="media-container" style="max-width: 100%; height: {{ section.settings.height }}px;">
+    {% if section.settings.media_type == 'image' and section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 2000 | image_tag:
+        loading: 'lazy',
+        width: section.settings.image.width,
+        height: section.settings.image.height,
+        class: 'full-width-media'
+      }}
+    {% elsif section.settings.media_type == 'video' and section.settings.video_url != blank %}
+      <div class="video-container">
+        {% if section.settings.video_url.type == 'youtube' %}
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}"
+            class="js-youtube"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ section.settings.description | escape }}"
+          ></iframe>
+        {% elsif section.settings.video_url.type == 'vimeo' %}
+          <iframe
+            src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}"
+            class="js-vimeo"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="{{ section.settings.description | escape }}"
+          ></iframe>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Full Width Media",
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image",
+      "label": "Media Type"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube", "vimeo"],
+      "label": "Video URL",
+      "info": "Supports YouTube and Vimeo"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Media Description",
+      "info": "Used for accessibility"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 200,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Media Height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full Width Media"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.section-{{ section.id }}-padding {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
+}
+
+.media-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.full-width-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+</style>

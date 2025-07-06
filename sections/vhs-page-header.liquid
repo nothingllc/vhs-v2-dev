@@ -1,0 +1,55 @@
+{%- if section.settings.show_title and page.title.size > 0 -%}
+  <div class="page-width page-width--narrow section-{{ section.id }}-padding">
+    <div class="title-wrapper title-wrapper--page-width">
+      <h1 class="title {{ section.settings.heading_size }}">{{ page.title }}</h1>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "VHS Page Header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "default": true,
+      "label": "Show page title"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h0",
+          "label": "Extra Large"
+        },
+        {
+          "value": "h1",
+          "label": "Large"
+        },
+        {
+          "value": "h2",
+          "label": "Medium"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.section-{{ section.id }}-padding {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+</style>

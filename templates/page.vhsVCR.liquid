@@ -1,0 +1,25 @@
+{%- comment -%}
+  Template: VHS VCR Page
+  Usage: This template can be applied to any page through the Shopify admin panel
+  under page settings. Supports dynamic sections for flexible layouts.
+{%- endcomment -%}
+
+{% section 'vhs-page-header' %}
+{% section 'vhs-text-block' %}
+{% section 'vhs-full-width-media' %}
+{% section 'vhs-contact-form' %}
+
+{%- style -%}
+  {% if page.metafields.custom.background_color != blank %}
+    .template-page-vhsVCR {
+      background-color: {{ page.metafields.custom.background_color }};
+    }
+  {% endif %}
+  {% if page.metafields.custom.background_image != blank %}
+    .template-page-vhsVCR {
+      background-image: url({{ page.metafields.custom.background_image | image_url: width: 2000 }});
+      background-size: cover;
+      background-position: center;
+    }
+  {% endif %}
+{%- endstyle -%}

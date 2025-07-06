@@ -1,0 +1,169 @@
+<div class="page-width page-width--narrow section-{{ section.id }}-padding">
+  <div class="contact-form">
+    {% form 'contact' %}
+      {%- if form.posted_successfully? -%}
+        <div class="form-status form-status-list form__message" tabindex="-1" autofocus>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-success" viewBox="0 0 13 13">
+            <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" stroke-width="0.7"/>
+            <path d="M9.00039 4.00418L5.50119 7.50338L3.99999 6.00218" fill="none" stroke="white" stroke-width="0.7"/>
+          </svg>
+          {{ 'templates.contact.form.post_success' | t }}
+        </div>
+      {%- endif -%}
+
+      <div class="contact__fields">
+        <div class="field">
+          <input
+            class="field__input"
+            type="text"
+            id="ContactForm-name"
+            name="contact[{{ 'templates.contact.form.name' | t }}]"
+            value="{% if form.name %}{{ form.name }}{% endif %}"
+            placeholder="{{ section.settings.name_placeholder }}"
+            required
+          >
+          <label class="field__label" for="ContactForm-name">{{ section.settings.name_placeholder }}</label>
+        </div>
+        <div class="field field--with-error">
+          <input
+            class="field__input"
+            type="email"
+            id="ContactForm-email"
+            name="contact[email]"
+            value="{% if form.email %}{{ form.email }}{% endif %}"
+            placeholder="{{ section.settings.email_placeholder }}"
+            required
+            autocorrect="off"
+            autocapitalize="off"
+          >
+          <label class="field__label" for="ContactForm-email">{{ section.settings.email_placeholder }}</label>
+        </div>
+      </div>
+      <div class="field">
+        <textarea
+          class="text-area field__input"
+          rows="6"
+          id="ContactForm-body"
+          name="contact[{{ 'templates.contact.form.comment' | t }}]"
+          placeholder="{{ section.settings.message_placeholder }}"
+          required
+        >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        <label class="form__label field__label" for="ContactForm-body">{{ section.settings.message_placeholder }}</label>
+      </div>
+      <div class="contact__button">
+        <button type="submit" class="button">
+          {{ section.settings.submit_text }}
+        </button>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Field Placeholder",
+      "default": "Name"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Field Placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Field Placeholder",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit Button Text",
+      "default": "Send Message"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.section-{{ section.id }}-padding {
+  padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact__fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field__input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.text-area {
+  width: 100%;
+  resize: vertical;
+}
+
+.contact__button {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 749px) {
+  .contact__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+}
+</style>
