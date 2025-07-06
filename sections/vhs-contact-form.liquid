@@ -48,7 +48,9 @@
           placeholder="{{ section.settings.message_placeholder }}"
           required
         >{% if form.body %}{{ form.body }}{% endif %}</textarea>
-        <label class="form__label field__label" for="ContactForm-body">{{ section.settings.message_placeholder }}</label>
+        <label class="form__label field__label" for="ContactForm-body">
+          {{- section.settings.message_placeholder -}}
+        </label>
       </div>
       <div class="contact__button">
         <button type="submit" class="button">
@@ -117,53 +119,53 @@
 {% endschema %}
 
 <style>
-.section-{{ section.id }}-padding {
-  padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
-}
-
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contact__fields {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-
-.field {
-  margin-bottom: 1.5rem;
-}
-
-.field__input {
-  width: 100%;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.text-area {
-  width: 100%;
-  resize: vertical;
-}
-
-.contact__button {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-@media screen and (max-width: 749px) {
-  .contact__fields {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media screen and (min-width: 750px) {
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
   }
-}
+
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contact__fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .field__input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .text-area {
+    width: 100%;
+    resize: vertical;
+  }
+
+  .contact__button {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact__fields {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
 </style>

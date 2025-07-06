@@ -1,11 +1,14 @@
 <div class="section-{{ section.id }}-padding">
   <div class="media-container" style="max-width: 100%; height: {{ section.settings.height }}px;">
     {% if section.settings.media_type == 'image' and section.settings.image != blank %}
-      {{ section.settings.image | image_url: width: 2000 | image_tag:
-        loading: 'lazy',
-        width: section.settings.image.width,
-        height: section.settings.image.height,
-        class: 'full-width-media'
+      {{
+        section.settings.image
+        | image_url: width: 2000
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.image.width,
+          height: section.settings.image.height,
+          class: 'full-width-media'
       }}
     {% elsif section.settings.media_type == 'video' and section.settings.video_url != blank %}
       <div class="video-container">
@@ -109,41 +112,41 @@
 {% endschema %}
 
 <style>
-.section-{{ section.id }}-padding {
-  padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-  padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
-}
-
-.media-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.full-width-media {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.video-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-@media screen and (min-width: 750px) {
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
   }
-}
+
+  .media-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .full-width-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
 </style>
