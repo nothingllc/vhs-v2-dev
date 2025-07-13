@@ -1,73 +1,88 @@
 <div class="full-width-media section-{{ section.id }}">
-  {%- if section.settings.video != blank -%}
-    <div class="video-wrapper" style="padding-bottom: 56.25%;">
-      <video
-        controls
-        playsinline
-        {% if section.settings.autoplay %}
-          autoplay muted loop
-        {% endif %}
-        poster="{{ section.settings.cover_image | image_url: width: 1920 }}"
-      >
-        <source src="{{ section.settings.video | file_url }}" type="video/mp4">
-      </video>
+  {% for block in section.blocks %}
+    <div class="media-block" {{ block.shopify_attributes }}>
+      {%- if block.settings.video != blank -%}
+        <div class="video-wrapper" style="padding-bottom: 56.25%;">
+          <video
+            controls
+            playsinline
+            {% if block.settings.autoplay %}
+              autoplay muted loop
+            {% endif %}
+            poster="{{ block.settings.cover_image | image_url: width: 1920 }}"
+          >
+            <source src="{{ block.settings.video | file_url }}" type="video/mp4">
+          </video>
+        </div>
+      {%- elsif block.settings.image != blank -%}
+        <div class="image-wrapper">
+          <img
+            srcset="
+              {%- if block.settings.image.width >= 375 -%}{{ block.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+              {%- if block.settings.image.width >= 750 -%}{{ block.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if block.settings.image.width >= 1100 -%}{{ block.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+              {%- if block.settings.image.width >= 1500 -%}{{ block.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {%- if block.settings.image.width >= 2200 -%}{{ block.settings.image | image_url: width: 2200 }} 2200w,{%- endif -%}
+              {{ block.settings.image | image_url }} {{ block.settings.image.width }}w
+            "
+            src="{{ block.settings.image | image_url: width: 1500 }}"
+            sizes="100vw"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+          >
+        </div>
+      {%- endif -%}
     </div>
-  {%- elsif section.settings.image != blank -%}
-    <div class="image-wrapper">
-      <img
-        srcset="
-          {%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
-          {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
-          {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
-          {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-          {%- if section.settings.image.width >= 2200 -%}{{ section.settings.image | image_url: width: 2200 }} 2200w,{%- endif -%}
-          {{ section.settings.image | image_url }} {{ section.settings.image.width }}w
-        "
-        src="{{ section.settings.image | image_url: width: 1500 }}"
-        sizes="100vw"
-        alt="{{ section.settings.image.alt | escape }}"
-        loading="lazy"
-        width="{{ section.settings.image.width }}"
-        height="{{ section.settings.image.height }}"
-      >
-    </div>
-  {%- endif -%}
+  {% endfor %}
 </div>
 
 {% schema %}
 {
   "name": "Full Width Media",
-  "settings": [
+  "blocks": [
     {
-      "type": "video",
-      "id": "video",
-      "label": "Video file",
-      "info": "Upload an MP4 video file"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image",
-      "info": "Will be used if no video is selected"
-    },
-    {
-      "type": "image_picker",
-      "id": "cover_image",
-      "label": "Video cover image",
-      "info": "Shown while video is loading"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Autoplay video",
-      "default": false,
-      "info": "Video will be muted when autoplay is enabled"
+      "type": "media",
+      "name": "Media Item",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video file",
+          "info": "Upload an MP4 video file"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Will be used if no video is selected"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Video cover image",
+          "info": "Shown while video is loading"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay video",
+          "default": false,
+          "info": "Video will be muted when autoplay is enabled"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Full Width Media",
-      "category": "Media"
+      "category": "Media",
+      "blocks": [
+        {
+          "type": "media"
+        }
+      ]
     }
   ]
 }
