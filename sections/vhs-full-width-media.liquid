@@ -1,37 +1,37 @@
-<div class="section-{{ section.id }}-padding">
-  <div class="media-container" style="max-width: 100%; height: {{ section.settings.height }}px;">
-    {% if section.settings.media_type == 'image' and section.settings.image != blank %}
-      {{
-        section.settings.image
-        | image_url: width: 2000
-        | image_tag:
-          loading: 'lazy',
-          width: section.settings.image.width,
-          height: section.settings.image.height,
-          class: 'full-width-media'
-      }}
-    {% elsif section.settings.media_type == 'video' and section.settings.video_url != blank %}
-      <div class="video-container">
-        {% if section.settings.video_url.type == 'youtube' %}
-          <iframe
-            src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}"
-            class="js-youtube"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-            title="{{ section.settings.description | escape }}"
-          ></iframe>
-        {% elsif section.settings.video_url.type == 'vimeo' %}
-          <iframe
-            src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}"
-            class="js-vimeo"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-            title="{{ section.settings.description | escape }}"
-          ></iframe>
+<div class="full-width-media section-{{ section.id }}">
+  {%- if section.settings.video != blank -%}
+    <div class="video-wrapper" style="padding-bottom: 56.25%;">
+      <video
+        controls
+        playsinline
+        {% if section.settings.autoplay %}
+          autoplay muted loop
         {% endif %}
-      </div>
-    {% endif %}
-  </div>
+        poster="{{ section.settings.cover_image | image_url: width: 1920 }}"
+      >
+        <source src="{{ section.settings.video | file_url }}" type="video/mp4">
+      </video>
+    </div>
+  {%- elsif section.settings.image != blank -%}
+    <div class="image-wrapper">
+      <img
+        srcset="
+          {%- if section.settings.image.width >= 375 -%}{{ section.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+          {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+          {%- if section.settings.image.width >= 1100 -%}{{ section.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+          {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {%- if section.settings.image.width >= 2200 -%}{{ section.settings.image | image_url: width: 2200 }} 2200w,{%- endif -%}
+          {{ section.settings.image | image_url }} {{ section.settings.image.width }}w
+        "
+        src="{{ section.settings.image | image_url: width: 1500 }}"
+        sizes="100vw"
+        alt="{{ section.settings.image.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.height }}"
+      >
+    </div>
+  {%- endif -%}
 </div>
 
 {% schema %}
@@ -39,114 +39,66 @@
   "name": "Full Width Media",
   "settings": [
     {
-      "type": "select",
-      "id": "media_type",
-      "options": [
-        {
-          "value": "image",
-          "label": "Image"
-        },
-        {
-          "value": "video",
-          "label": "Video"
-        }
-      ],
-      "default": "image",
-      "label": "Media Type"
+      "type": "video",
+      "id": "video",
+      "label": "Video file",
+      "info": "Upload an MP4 video file"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "Image",
+      "info": "Will be used if no video is selected"
     },
     {
-      "type": "video_url",
-      "id": "video_url",
-      "accept": ["youtube", "vimeo"],
-      "label": "Video URL",
-      "info": "Supports YouTube and Vimeo"
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Video cover image",
+      "info": "Shown while video is loading"
     },
     {
-      "type": "text",
-      "id": "description",
-      "label": "Media Description",
-      "info": "Used for accessibility"
-    },
-    {
-      "type": "range",
-      "id": "height",
-      "min": 200,
-      "max": 1000,
-      "step": 20,
-      "unit": "px",
-      "label": "Media Height",
-      "default": 400
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Top Padding",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Bottom Padding",
-      "default": 0
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay video",
+      "default": false,
+      "info": "Video will be muted when autoplay is enabled"
     }
   ],
   "presets": [
     {
-      "name": "Full Width Media"
+      "name": "Full Width Media",
+      "category": "Media"
     }
   ]
 }
 {% endschema %}
 
 <style>
-  .section-{{ section.id }}-padding {
-    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
+  .full-width-media {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
 
-  .media-container {
+  .video-wrapper {
     position: relative;
     width: 100%;
+    height: 0;
     overflow: hidden;
   }
 
-  .full-width-media {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .video-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .video-container iframe {
+  .video-wrapper video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 </style>
