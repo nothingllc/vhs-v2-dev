@@ -1,7 +1,14 @@
 {%- if section.settings.show_title and page.title.size > 0 -%}
   <div class="page-width page-width--narrow section-{{ section.id }}-padding">
     <div class="title-wrapper title-wrapper--page-width">
-      <h1 class="title {{ section.settings.heading_size }}">{{ page.title }}</h1>
+      <h1 class="title {{ section.settings.heading_size }}">
+        {{ section.settings.custom_title | default: page.title }}
+      </h1>
+      {% if section.settings.header_text != blank %}
+        <div class="header-text rte">
+          {{ section.settings.header_text }}
+        </div>
+      {% endif %}
     </div>
   </div>
 {%- endif -%}
@@ -15,6 +22,18 @@
       "id": "show_title",
       "default": true,
       "label": "Show page title"
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom title",
+      "info": "Leave blank to use page title"
+    },
+    {
+      "type": "richtext",
+      "id": "header_text",
+      "label": "Header text",
+      "info": "Add optional text below the title"
     },
     {
       "type": "select",
