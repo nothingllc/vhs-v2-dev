@@ -4,6 +4,8 @@
       <iframe
         class="video-player"
         src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}?rel=0&controls=1"
+        title="YouTube video player"  <!-- Added for accessibility -->
+        loading="lazy"               <!-- Added for performance -->
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
@@ -13,10 +15,11 @@
         class="video-player"
         controls
         preload="metadata"
-        poster="{{ section.settings.cover_image | image_url: width: 1920 }}"
+        poster="{{ section.settings.cover_image | image_url: width: 1920, format: 'pjpg' }}"  <!-- Added format -->
+        aria-label="Video player"    <!-- Added for accessibility -->
       >
         <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
-        Your browser does not support the video tag.
+        <p class="video-fallback">Your browser does not support the video tag.</p>  <!-- Better fallback -->
       </video>
     {%- endif -%}
   </div>
