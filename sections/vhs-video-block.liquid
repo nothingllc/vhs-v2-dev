@@ -1,66 +1,77 @@
 <div class="video-section section-{{ section.id }}-padding">
-  <div class="video-container" style="padding-bottom: 56.25%;">
-    {%- if section.settings.video_url != blank -%}
-      <iframe
-        src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
-    {%- elsif section.settings.video_file != blank -%}
-      <video
-        controls
-        playsinline
-        {% if section.settings.autoplay %}
-          autoplay muted loop
-        {% endif %}
-        poster="{{ section.settings.cover_image | image_url: width: 1920 }}"
-      >
-        <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
-      </video>
-    {%- else -%}
-      <div class="video-placeholder">
-        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-      </div>
-    {%- endif -%}
-  </div>
+  {% for block in section.blocks %}
+    <div class="video-container" {{ block.shopify_attributes }} style="padding-bottom: 56.25%;">
+      {%- if block.settings.video_url != blank -%}
+        <iframe
+          src="{{ block.settings.video_url | replace: 'watch?v=', 'embed/' }}"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      {%- elsif block.settings.video_file != blank -%}
+        <video
+          controls
+          playsinline
+          {% if block.settings.autoplay %}autoplay muted loop{% endif %}
+          poster="{{ block.settings.cover_image | image_url: width: 1920 }}"
+        >
+          <source src="{{ block.settings.video_file | file_url }}" type="video/mp4">
+        </video>
+      {%- else -%}
+        <div class="video-placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+  {% endfor %}
 </div>
 
 {% schema %}
 {
   "name": "VHS Video Block",
-  "settings": [
-    {
-      "type": "video_url",
-      "id": "video_url",
-      "label": "YouTube Video URL",
-      "accept": ["youtube"],
-      "info": "Enter a YouTube video URL"
-    },
+  "blocks": [
     {
       "type": "video",
-      "id": "video_file",
-      "label": "Video file",
-      "info": "Upload an MP4 video file"
-    },
-    {
-      "type": "image_picker",
-      "id": "cover_image",
-      "label": "Cover image",
-      "info": "Shown while video is loading"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Autoplay video",
-      "default": false,
-      "info": "Video will be muted when autoplay is enabled"
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "YouTube Video URL",
+          "accept": ["youtube"],
+          "info": "Enter a YouTube video URL"
+        },
+        {
+          "type": "video",
+          "id": "video_file",
+          "label": "Video file",
+          "info": "Upload an MP4 video file"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image",
+          "info": "Shown while video is loading"
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Autoplay video",
+          "default": false,
+          "info": "Video will be muted when autoplay is enabled"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "VHS Video Block",
-      "category": "Video"
+      "category": "Video",
+      "blocks": [
+        {
+          "type": "video"
+        }
+      ]
     }
   ]
 }
