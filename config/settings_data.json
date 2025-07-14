@@ -137,7 +137,7 @@
       "vhs-page-header": {
         "type": "vhs-page-header",
         "settings": {
-          "show_title": true,
+          "show_title": false,
           "custom_title": "",
           "header_text": "",
           "heading_size": "h1"
