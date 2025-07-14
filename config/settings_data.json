@@ -156,11 +156,20 @@
       },
       "vhs-full-width-media": {
         "type": "vhs-full-width-media",
-        "settings": {
-          "video": "shopify://files/videos/VCR Logo Loop web.mp4",
-          "cover_image": "shopify://shop_images/Screenshot_2025-07-12_at_6.57.53_PM.png",
-          "autoplay": true
-        }
+        "blocks": {
+          "media_afLHrJ": {
+            "type": "media",
+            "settings": {
+              "video": "shopify://files/videos/VCR Logo Loop web.mp4",
+              "cover_image": "shopify://shop_images/Screenshot_2025-07-12_at_6.57.53_PM.png",
+              "autoplay": true
+            }
+          }
+        },
+        "block_order": [
+          "media_afLHrJ"
+        ],
+        "settings": {}
       },
       "vhs-contact-form": {
         "type": "vhs-contact-form",
