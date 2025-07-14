@@ -1,20 +1,22 @@
-<div class="section-{{ section.id }}-padding">
-  <div class="video-container" style="padding-bottom: 56.25%;">
+<div class="video-section section-{{ section.id }}">
+  <div class="video-wrapper">
     {%- if section.settings.video_url != blank -%}
       <iframe
-        src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}"
-        allow="autoplay; encrypted-media"
+        class="video-player"
+        src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}?rel=0&controls=1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
-        loading="lazy"
       ></iframe>
     {%- elsif section.settings.video_file != blank -%}
       <video
+        class="video-player"
         controls
-        playsinline
-        {% if section.settings.autoplay %}autoplay muted loop{% endif %}
+        preload="metadata"
         poster="{{ section.settings.cover_image | image_url: width: 1920 }}"
       >
         <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
     {%- endif -%}
   </div>
@@ -23,8 +25,6 @@
 {% schema %}
 {
   "name": "Video Block",
-  "tag": "section",
-  "class": "section",
   "settings": [
     {
       "type": "video_url",
@@ -35,18 +35,14 @@
     {
       "type": "video",
       "id": "video_file",
-      "label": "Video file"
+      "label": "Video file (MP4)",
+      "info": "Maximum file size: 20MB"
     },
     {
       "type": "image_picker",
       "id": "cover_image",
-      "label": "Cover image"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Autoplay video",
-      "default": false
+      "label": "Cover image",
+      "info": "Shown before video plays"
     }
   ],
   "presets": [
@@ -59,37 +55,23 @@
 
 <style>
   .video-section {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    max-width: 100%;
+    margin: 0 auto;
   }
 
-  .video-container {
+  .video-wrapper {
     position: relative;
-    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
   }
 
-  .video-container iframe,
-  .video-container video {
+  .video-player {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-
-  .video-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #f4f4f4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 0;
   }
 </style>
