@@ -4,18 +4,12 @@
   under page settings. Supports dynamic sections for flexible layouts.
 {%- endcomment -%}
 
-{%- for section in section.blocks -%}
-  {% case section.type %}
-    {% when 'header' %}
-      {% section 'vhs-page-header' %}
-    {% when 'video' %}
-      {% section 'vhs-video-block' %}
-    {% when 'media' %}
-      {% section 'vhs-full-width-media' %}
-    {% when 'contact' %}
-      {% section 'vhs-contact-form' %}
-  {% endcase %}
-{%- endfor -%}
+<div class="template-page-vhsVCR">
+  {% section 'vhs-page-header' %}
+  {%- for section in page.sections -%}
+    {% render section %}
+  {%- endfor -%}
+</div>
 
 {%- style -%}
   {% if page.metafields.custom.background_color != blank %}
@@ -35,33 +29,10 @@
 {% schema %}
 {
   "name": "VHS VCR Page",
-  "blocks": [
-    {
-      "type": "header",
-      "name": "Page Header",
-      "limit": 1
-    },
-    {
-      "type": "video",
-      "name": "Video Block"
-    },
-    {
-      "type": "media",
-      "name": "Full Width Media"
-    },
-    {
-      "type": "contact",
-      "name": "Contact Form"
-    }
-  ],
+  "settings": [],
   "presets": [
     {
-      "name": "VHS VCR Page",
-      "blocks": [
-        {
-          "type": "header"
-        }
-      ]
+      "name": "VHS VCR Page"
     }
   ]
 }
