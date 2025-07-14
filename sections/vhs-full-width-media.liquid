@@ -6,13 +6,17 @@
           <video
             controls
             playsinline
-            {% if block.settings.autoplay %}
-              autoplay muted loop
-            {% endif %}
+            preload="auto"
+            {% if block.settings.autoplay %}autoplay muted loop{% endif %}
             poster="{{ block.settings.cover_image | image_url: width: 1920 }}"
+            oncanplay="this.play()"
+            onwaiting="this.pause()"
           >
             <source src="{{ block.settings.video | file_url }}" type="video/mp4">
           </video>
+          <div class="video-loading-overlay">
+            <div class="loading-spinner"></div>
+          </div>
         </div>
       {%- elsif block.settings.image != blank -%}
         <div class="image-wrapper">
@@ -115,5 +119,38 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .video-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .video-wrapper video:playing + .video-loading-overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 </style>
