@@ -1,0 +1,36 @@
+{
+  "name": "VHS VCR Page",
+  "wrapper": "div",
+  "sections": {
+    "header": {
+      "type": "vhs-page-header"
+    },
+    "main": {
+      "type": "vhs-page-content",
+      "blocks": {
+        "full_width_media": {
+          "type": "full_width_media"
+        },
+        "video_block": {
+          "type": "video_block"
+        },
+        "text_block": {
+          "type": "text"
+        }
+      },
+      "block_order": [
+        "full_width_media",
+        "video_block",
+        "text_block"
+      ],
+      "settings": {
+        "background_color": "#ffffff",
+        "background_image": ""
+      }
+    }
+  },
+  "order": [
+    "header",
+    "main"
+  ]
+}

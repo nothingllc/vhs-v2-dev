@@ -1,0 +1,70 @@
+<div
+  class="template-page-vhsVCR"
+  {% if section.settings.background_color != blank %}
+    style="background-color: {{ section.settings.background_color }};"
+  {% endif %}
+>
+  <div class="page-width">
+    <div class="sections-wrapper">
+      {%- for block in section.blocks -%}
+        {%
+          render block.type,
+          block: block,
+          settings: block.settings
+        %}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% if section.settings.background_image != blank %}
+  <style>
+    .template-page-vhsVCR {
+      background-image: url({{ section.settings.background_image | image_url: width: 2000 }});
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "VHS Page Content",
+  "tag": "section",
+  "class": "spaced-section",
+  "blocks": [
+    {
+      "type": "full_width_media",
+      "name": "Media Section",
+      "limit": null
+    },
+    {
+      "type": "video_block",
+      "name": "Video Block",
+      "limit": null
+    },
+    {
+      "type": "text",
+      "name": "Text Block",
+      "limit": null
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ]
+}
+{% endschema %}
