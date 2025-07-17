@@ -1,0 +1,38 @@
+{
+  "name": "Video Block",
+  "tag": "section",
+  "class": "spaced-section",
+  "settings": [
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "YouTube Video URL",
+      "accept": ["youtube"]
+    },
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Video file (MP4)",
+      "info": "Maximum file size: 20MB"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "Cover image",
+      "info": "Shown before video plays"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay video",
+      "default": false,
+      "info": "Video will be muted when autoplay is enabled"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Block",
+      "category": "Video"
+    }
+  ]
+}

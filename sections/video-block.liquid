@@ -1,0 +1,49 @@
+<div class="video-section section-{{ section.id }}">
+  <div class="video-wrapper">
+    {%- if section.settings.video_url != blank -%}
+      <iframe
+        class="video-player"
+        src="{{ section.settings.video_url | replace: 'watch?v=', 'embed/' }}?rel=0&controls=1"
+        title="YouTube video player"
+        loading="lazy"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    {%- elsif section.settings.video_file != blank -%}
+      <video
+        class="video-player"
+        controls
+        preload="metadata"
+        poster="{{ section.settings.cover_image | image_url: width: 1920, format: 'pjpg' }}"
+        aria-label="Video player"
+      >
+        <source src="{{ section.settings.video_file | file_url }}" type="video/mp4">
+        <p class="video-fallback">Your browser does not support the video tag.</p>
+      </video>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .video-section {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .video-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
