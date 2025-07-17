@@ -157,7 +157,7 @@
       "vhs-full-width-media": {
         "type": "vhs-full-width-media",
         "settings": {
-          "media_type": "image",
+          "media_type": "video",
           "image": "shopify://shop_images/VCR-Logo-Loop-wave-cycleWord.gif",
           "video_file": "shopify://files/videos/VCR Logo Loop web.mp4",
           "video_url": "",
