@@ -4,11 +4,20 @@
   under page settings. Supports dynamic sections for flexible layouts.
 {%- endcomment -%}
 
-<div class="template-page-vhsVCR">
-  {% section 'vhs-page-header' %}
-  {%- for section in page.sections -%}
-    {% render section %}
-  {%- endfor -%}
+<div class="page-width">
+  <div class="template-page-vhsVCR" {{ section.shopify_attributes }}>
+    {% section 'vhs-page-header' %}
+
+    <div class="sections-wrapper">
+      {%- for block in section.blocks -%}
+        {%
+          render block.type,
+          block: block,
+          settings: block.settings
+        %}
+      {%- endfor -%}
+    </div>
+  </div>
 </div>
 
 {%- style -%}
@@ -29,10 +38,46 @@
 {% schema %}
 {
   "name": "VHS VCR Page",
-  "settings": [],
+  "tag": "section",
+  "class": "spaced-section",
+  "blocks": [
+    {
+      "type": "full_width_media",
+      "name": "Media Section",
+      "limit": null
+    },
+    {
+      "type": "video_block",
+      "name": "Video Block",
+      "limit": null
+    },
+    {
+      "type": "text",
+      "name": "Text Block",
+      "limit": null
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ],
   "presets": [
     {
-      "name": "VHS VCR Page"
+      "name": "VHS VCR Page",
+      "category": "Page Templates"
     }
   ]
 }
