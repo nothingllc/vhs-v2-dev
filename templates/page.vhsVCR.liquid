@@ -6,8 +6,10 @@
 
 <div class="template-page-vhsVCR">
   {% section 'vhs-page-header' %}
-  {%- for section in page.sections -%}
-    {% render section %}
+  {%- for block in section.blocks -%}
+    <div {{ block.shopify_attributes }}>
+      {% render block.type %}
+    </div>
   {%- endfor -%}
 </div>
 
@@ -29,7 +31,18 @@
 {% schema %}
 {
   "name": "VHS VCR Page",
-  "settings": [],
+  "blocks": [
+    {
+      "type": "full_width_media",
+      "name": "Media Section",
+      "limit": null
+    },
+    {
+      "type": "video_block",
+      "name": "Video Block",
+      "limit": null
+    }
+  ],
   "presets": [
     {
       "name": "VHS VCR Page"
