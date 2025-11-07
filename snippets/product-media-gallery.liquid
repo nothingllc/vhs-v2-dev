@@ -65,37 +65,37 @@
         assign featured_media = product.selected_or_first_available_variant.featured_media
         assign media_position = 0
       -%}
-      
+
       {%- for media in product.media -%}
         {%- liquid
           assign media_position = media_position | plus: 1
-          
+
           # Check conditions
           if media.id == featured_media.id
             assign is_featured = true
           else
             assign is_featured = false
           endif
-          
+
           if forloop.index == 1
             assign is_first_item = true
           else
             assign is_first_item = false
           endif
-          
+
           if section.settings.hide_variants and variant_images contains media.src
             assign should_skip_variant = true
           else
             assign should_skip_variant = false
           endif
-          
+
           if limit and media_position > limit
             assign exceeds_limit = true
           else
             assign exceeds_limit = false
           endif
         -%}
-        
+
         {%- if should_skip_variant or exceeds_limit -%}
           {%- assign media_position = media_position | minus: 1 -%}
           {%- continue -%}
@@ -106,7 +106,8 @@
           class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if is_featured or featured_media == null and is_first_item %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
           data-media-id="{{ section.id }}-{{ media.id }}"
         >
-          {% render 'product-thumbnail',
+          {%
+            render 'product-thumbnail',
             media: media,
             media_count: media_count,
             position: media_position,
@@ -210,24 +211,24 @@
           assign thumbnail_position = 0
           assign featured_media = product.selected_or_first_available_variant.featured_media
         -%}
-        
+
         {%- for media in product.media -%}
           {%- liquid
             assign thumbnail_position = thumbnail_position | plus: 1
-            
+
             # Check if this is featured media
             if media.id == featured_media.id
               assign is_featured_thumb = true
             else
               assign is_featured_thumb = false
             endif
-            
+
             # Skip variant images if setting is enabled
             if section.settings.hide_variants and variant_images contains media.src
               assign thumbnail_position = thumbnail_position | minus: 1
               continue
             endif
-            
+
             # Calculate media index for accessibility
             capture media_index
               if media.media_type == 'model'
@@ -240,7 +241,7 @@
             endcapture
             assign media_index = media_index | plus: 1
           -%}
-          
+
           <li
             id="Slide-Thumbnails-{{ section.id }}-{{ forloop.index0 }}"
             class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}"
@@ -260,11 +261,11 @@
                 </span>
               </span>
             {%- endif -%}
-            
+
             {%- capture thumbnail_id -%}
               Thumbnail-{{ section.id }}-{{ forloop.index0 }}
             {%- endcapture -%}
-            
+
             <button
               class="thumbnail global-media-settings global-media-settings--no-shadow"
               aria-label="{%- if media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: media_index }}{%- elsif media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: media_index }}{%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}{{ 'products.product.media.load_video' | t: index: media_index }}{%- endif -%}"
