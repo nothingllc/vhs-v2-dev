@@ -11,6 +11,60 @@
   {% render 'product-media-gallery' %}
 {% endcomment %}
 
+<style>
+  .media-gallery--full-width {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .media-gallery__slider {
+    width: 100%;
+    position: relative;
+  }
+
+  .media-gallery__list {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .media-gallery__list::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+  }
+
+  .media-gallery__item {
+    position: relative;
+    background: var(--gradient-background, #f8f8f8);
+  }
+
+  .media-gallery__item .product-media-container {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .media-gallery__item {
+      min-height: 40vh;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .media-gallery__item {
+      min-height: 60vh;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .media-gallery__item {
+      min-height: 70vh;
+    }
+  }
+</style>
+
 {%- liquid
   if section.settings.hide_variants and variant_images.size == product.media.size
     assign single_media_visible = true
@@ -45,21 +99,21 @@
 <media-gallery
   id="MediaGallery-{{ section.id }}"
   role="region"
-  {% if section.settings.enable_sticky_info %}
-    class="product__column-sticky"
-  {% endif %}
+  class="media-gallery--full-width{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
+  style="width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
-  <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
+  <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter media-gallery__slider">
     <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
       {{ 'accessibility.skip_to_product_info' | t }}
     </a>
     <ul
       id="Slider-Gallery-{{ section.id }}"
-      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
+      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile media-gallery__list"
       role="list"
+      style="width: 100%; display: flex; overflow-x: auto; scroll-snap-type: x mandatory;"
     >
       {%- liquid
         assign featured_media = product.selected_or_first_available_variant.featured_media
@@ -103,8 +157,9 @@
 
         <li
           id="Slide-{{ section.id }}-{{ media.id }}"
-          class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if is_featured or featured_media == null and is_first_item %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+          class="product__media-item grid__item slider__slide media-gallery__item{% if single_media_visible %} product__media-item--single{% endif %}{% if is_featured or featured_media == null and is_first_item %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
           data-media-id="{{ section.id }}-{{ media.id }}"
+          style="flex: none; width: 100vw; scroll-snap-align: center; min-height: 50vh; display: flex; align-items: center; justify-content: center;"
         >
           {%
             render 'product-thumbnail',
